@@ -137,7 +137,7 @@ public final class II {
         while (l < r) {
             midA = l + (r - l) / 2;
             midB = k - midA;
-            if (sortedA[midA] < sortedB[midB]) {
+            if (Double.compare(sortedA[midA], sortedB[midB]) < 0) {
                 l = midA + 1;
             } else {
                 r = midA;
@@ -152,7 +152,7 @@ public final class II {
 
         final double b = l < m ? (k - l + 1 < n ? N.min(sortedA[l], sortedB[k - l + 1]) : sortedA[l]) : sortedB[k - l + 1];
 
-        return a <= b ? Pair.of(a, OptionalDouble.of(b)) : Pair.of(b, OptionalDouble.of(a));
+        return Double.compare(a, b) <= 0 ? Pair.of(a, OptionalDouble.of(b)) : Pair.of(b, OptionalDouble.of(a));
     }
 
     /**
