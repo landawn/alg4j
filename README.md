@@ -1,2 +1,2 @@
 # alg4j
-Algorithm in Java
+Algorithms in Java
