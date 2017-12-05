@@ -16,6 +16,14 @@ public final class II {
         // utility class.
     }
 
+    /**
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged, 
+     * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two arrays' length is even, or empty is the sum is odd.
+     * 
+     * @param sortedA
+     * @param sortedB
+     * @return
+     */
     public static Pair<Integer, OptionalInt> medianOfTwoSortedArrays(final int[] sortedA, final int[] sortedB) {
         N.checkArgument(N.notNullOrEmpty(sortedA) || N.notNullOrEmpty(sortedB), "The two sorted arrays can't both be null or empty");
         if (N.isNullOrEmpty(sortedA)) {
@@ -50,9 +58,17 @@ public final class II {
 
         final int b = l < m ? (k - l + 1 < n ? N.min(sortedA[l], sortedB[k - l + 1]) : sortedA[l]) : sortedB[k - l + 1];
 
-        return Pair.of(a, OptionalInt.of(b));
+        return a <= b ? Pair.of(a, OptionalInt.of(b)) : Pair.of(b, OptionalInt.of(a));
     }
 
+    /**
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged, 
+     * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two arrays' length is even, or empty is the sum is odd.
+     * 
+     * @param sortedA
+     * @param sortedB
+     * @return
+     */
     public static Pair<Long, OptionalLong> medianOfTwoSortedArrays(final long[] sortedA, final long[] sortedB) {
         N.checkArgument(N.notNullOrEmpty(sortedA) || N.notNullOrEmpty(sortedB), "The two sorted arrays can't both be null or empty");
         if (N.isNullOrEmpty(sortedA)) {
@@ -87,9 +103,17 @@ public final class II {
 
         final long b = l < m ? (k - l + 1 < n ? N.min(sortedA[l], sortedB[k - l + 1]) : sortedA[l]) : sortedB[k - l + 1];
 
-        return Pair.of(a, OptionalLong.of(b));
+        return a <= b ? Pair.of(a, OptionalLong.of(b)) : Pair.of(b, OptionalLong.of(a));
     }
 
+    /**
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged, 
+     * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two arrays' length is even, or empty is the sum is odd.
+     * 
+     * @param sortedA
+     * @param sortedB
+     * @return
+     */
     public static Pair<Double, OptionalDouble> medianOfTwoSortedArrays(final double[] sortedA, final double[] sortedB) {
         N.checkArgument(N.notNullOrEmpty(sortedA) || N.notNullOrEmpty(sortedB), "The two sorted arrays can't both be null or empty");
         if (N.isNullOrEmpty(sortedA)) {
@@ -128,14 +152,24 @@ public final class II {
 
         final double b = l < m ? (k - l + 1 < n ? N.min(sortedA[l], sortedB[k - l + 1]) : sortedA[l]) : sortedB[k - l + 1];
 
-        return Pair.of(a, OptionalDouble.of(b));
+        return a <= b ? Pair.of(a, OptionalDouble.of(b)) : Pair.of(b, OptionalDouble.of(a));
     }
 
+    /**
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged, 
+     * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two arrays' length is even, or empty is the sum is odd.
+     * 
+     * @param sortedA
+     * @param sortedB
+     * @return
+     */
     public static <T extends Comparable<? super T>> Pair<T, Optional<T>> medianOfTwoSortedArrays(final T[] sortedA, final T[] sortedB) {
         return medianOfTwoSortedArrays(sortedA, sortedB, Comparators.naturalOrder());
     }
 
     /**
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged, 
+     * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two arrays' length is even, or empty is the sum is odd.
      * 
      * @param sortedA has to be already sorted with the specified {@code comparator}.
      * @param sortedB has to be already sorted with the specified {@code comparator}.
@@ -178,14 +212,25 @@ public final class II {
 
         final T b = l < m ? (k - l + 1 < n ? N.min(sortedA[l], sortedB[k - l + 1], comparator) : sortedA[l]) : sortedB[k - l + 1];
 
-        return Pair.of(a, Optional.of(b));
+        return N.compare(a, b, comparator) <= 0 ? Pair.of(a, Optional.of(b)) : Pair.of(b, Optional.of(a));
     }
 
+    /**
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted lists are merged, 
+     * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two lists' length is even, or empty is the sum is odd.
+     * 
+     * 
+     * @param sortedA
+     * @param sortedB
+     * @return
+     */
     public static <T extends Comparable<? super T>> Pair<T, Optional<T>> medianOfTwoSortedLists(final List<T> sortedA, final List<T> sortedB) {
         return medianOfTwoSortedLists(sortedA, sortedB, Comparators.naturalOrder());
     }
 
     /**
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted lists are merged, 
+     * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two lists' length is even, or empty is the sum is odd.
      * 
      * @param sortedA has to be already sorted with the specified {@code comparator}.
      * @param sortedB has to be already sorted with the specified {@code comparator}.
@@ -228,6 +273,6 @@ public final class II {
 
         final T b = l < m ? (k - l + 1 < n ? N.min(sortedA.get(l), sortedB.get(k - l + 1), comparator) : sortedA.get(l)) : sortedB.get(k - l + 1);
 
-        return Pair.of(a, Optional.of(b));
+        return N.compare(a, b, comparator) <= 0 ? Pair.of(a, Optional.of(b)) : Pair.of(b, Optional.of(a));
     }
 }
