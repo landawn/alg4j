@@ -284,6 +284,39 @@ public final class II {
     /**
      * 
      * @param s
+     * @return
+     */
+    public static int lengthOfLongestSubstringWithoutRepeatingCharacters(String s) {
+        if (N.isNullOrEmpty(s)) {
+            return 0;
+        }
+
+        Map<Character, Integer> charPositionMap = new HashMap<>();
+        int maxLength = 0;
+        int cnt = 0;
+
+        for (int i = 0, len = s.length(); i < len; i++) {
+            char ch = s.charAt(i);
+            Integer idx = charPositionMap.get(ch);
+
+            if (idx == null || i - idx > cnt) {
+                cnt++;
+            } else {
+                maxLength = Math.max(maxLength, cnt);
+                cnt = i - idx;
+            }
+
+            charPositionMap.put(ch, i);
+        }
+
+        maxLength = Math.max(maxLength, cnt);
+
+        return maxLength;
+    }
+
+    /**
+     * 
+     * @param s
      * @return an empty {@code Stream} if the specified {@code CharSequence} is {@code null} or empty.
      */
     public static Stream<String> longestSubstringsWithoutRepeatingCharacters(final CharSequence s) {
