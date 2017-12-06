@@ -1,15 +1,20 @@
 package com.landawn.alg4j.util;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.landawn.abacus.util.Comparators;
+import com.landawn.abacus.util.IntPair;
 import com.landawn.abacus.util.N;
 import com.landawn.abacus.util.Optional;
 import com.landawn.abacus.util.OptionalDouble;
 import com.landawn.abacus.util.OptionalInt;
 import com.landawn.abacus.util.OptionalLong;
 import com.landawn.abacus.util.Pair;
+import com.landawn.abacus.util.stream.Stream;
 
 public final class II {
     private II() {
@@ -274,5 +279,54 @@ public final class II {
         final T b = l < m ? (k - l + 1 < n ? N.min(sortedA.get(l), sortedB.get(k - l + 1), comparator) : sortedA.get(l)) : sortedB.get(k - l + 1);
 
         return N.compare(a, b, comparator) <= 0 ? Pair.of(a, Optional.of(b)) : Pair.of(b, Optional.of(a));
+    }
+
+    /**
+     * 
+     * @param s
+     * @return an empty {@code Stream} if the specified {@code CharSequence} is {@code null} or empty.
+     */
+    public static Stream<String> longestSubstringsWithoutRepeatingCharacters(final CharSequence s) {
+        if (N.isNullOrEmpty(s)) {
+            return Stream.empty();
+        }
+
+        final Map<Character, Integer> charPositionMap = new HashMap<>();
+        final List<IntPair> startEndPositionsList = new ArrayList<>();
+        int maxLength = 0;
+        int cnt = 0;
+
+        for (int i = 0, len = s.length(); i < len; i++) {
+            char ch = s.charAt(i);
+            Integer idx = charPositionMap.get(ch);
+
+            if (idx == null || i - idx > cnt) {
+                cnt++;
+            } else {
+                if (cnt > maxLength) {
+                    startEndPositionsList.clear();
+                }
+
+                if (cnt >= maxLength) {
+                    startEndPositionsList.add(IntPair.of(i - cnt, i));
+                }
+
+                maxLength = Math.max(maxLength, cnt);
+
+                cnt = i - idx;
+            }
+
+            charPositionMap.put(ch, i);
+        }
+
+        if (cnt > maxLength) {
+            startEndPositionsList.clear();
+        }
+
+        if (cnt >= maxLength) {
+            startEndPositionsList.add(IntPair.of(s.length() - cnt, s.length()));
+        }
+
+        return Stream.of(startEndPositionsList).map(p -> s.subSequence(p._1, p._2).toString());
     }
 }
