@@ -1,10 +1,19 @@
 package com.landawn.alg4j.util;
 
 import com.landawn.abacus.util.N;
+import com.landawn.abacus.util.Try;
 
 public class BinaryTreeNode<T> extends Node<T> {
-    private final BinaryTreeNode<T> left;
-    private final BinaryTreeNode<T> right;
+    private BinaryTreeNode<T> left;
+    private BinaryTreeNode<T> right;
+
+    public BinaryTreeNode() {
+        this(null);
+    }
+
+    public BinaryTreeNode(final T value) {
+        this(value, null, null);
+    }
 
     public BinaryTreeNode(final T value, final BinaryTreeNode<T> left, final BinaryTreeNode<T> right) {
         super(value);
@@ -17,6 +26,64 @@ public class BinaryTreeNode<T> extends Node<T> {
     }
 
     public BinaryTreeNode<T> right() {
+        return right;
+    }
+
+    public BinaryTreeNode<T> getLeft() {
+        return left;
+    }
+
+    public void setLeft(final BinaryTreeNode<T> newLeft) {
+        this.left = newLeft;
+    }
+
+    public <E extends Exception> boolean setLeftIf(final BinaryTreeNode<T> newLeft, final Try.Predicate<? super BinaryTreeNode<T>, E> predicate)
+            throws E {
+        if (predicate.test(this)) {
+            this.left = newLeft;
+            return true;
+        }
+
+        return false;
+    }
+
+    public BinaryTreeNode<T> getAndSetLeft(final BinaryTreeNode<T> newLeft) {
+        final BinaryTreeNode<T> res = left();
+        this.left = newLeft;
+        return res;
+    }
+
+    public BinaryTreeNode<T> setAndGetLeft(final BinaryTreeNode<T> newLeft) {
+        this.left = newLeft;
+        return left;
+    }
+
+    public BinaryTreeNode<T> getRight() {
+        return left;
+    }
+
+    public void setRight(final BinaryTreeNode<T> newRight) {
+        this.right = newRight;
+    }
+
+    public <E extends Exception> boolean setRightIf(final BinaryTreeNode<T> newRight, final Try.Predicate<? super BinaryTreeNode<T>, E> predicate)
+            throws E {
+        if (predicate.test(this)) {
+            this.right = newRight;
+            return true;
+        }
+
+        return false;
+    }
+
+    public BinaryTreeNode<T> getAndSetRight(final BinaryTreeNode<T> newRight) {
+        final BinaryTreeNode<T> res = right();
+        this.right = newRight;
+        return res;
+    }
+
+    public BinaryTreeNode<T> setAndGetRight(final BinaryTreeNode<T> newRight) {
+        this.right = newRight;
         return right;
     }
 
@@ -44,20 +111,20 @@ public class BinaryTreeNode<T> extends Node<T> {
         return false;
     }
 
-    @Override
-    public String toString() {
-        if (left == null) {
-            if (right == null) {
-                return N.toString(this.value());
-            } else {
-                return N.concat(N.toString(this.value()), "[, ", N.toString(right), "]");
-            }
-        } else {
-            if (right == null) {
-                return N.concat(N.toString(this.value()), "[", N.toString(left), ", ]");
-            } else {
-                return N.concat(N.toString(this.value()), "[", N.toString(left), ", ", N.toString(right), "]");
-            }
-        }
-    }
+    //    @Override
+    //    public String toString() {
+    //        if (left == null) {
+    //            if (right == null) {
+    //                return N.toString(this.value());
+    //            } else {
+    //                return N.concat(N.toString(this.value()), "[, ", N.toString(right), "]");
+    //            }
+    //        } else {
+    //            if (right == null) {
+    //                return N.concat(N.toString(this.value()), "[", N.toString(left), ", ]");
+    //            } else {
+    //                return N.concat(N.toString(this.value()), "[", N.toString(left), ", ", N.toString(right), "]");
+    //            }
+    //        }
+    //    }
 }

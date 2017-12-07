@@ -3,7 +3,7 @@ package com.landawn.alg4j.util;
 import com.landawn.abacus.util.N;
 import com.landawn.abacus.util.Try;
 
-public class DoubleLinkedNode<T> extends MutableNode<T> {
+public class DoubleLinkedNode<T> extends Node<T> {
     private DoubleLinkedNode<T> previous;
     private DoubleLinkedNode<T> next;
 
@@ -110,20 +110,20 @@ public class DoubleLinkedNode<T> extends MutableNode<T> {
         return false;
     }
 
-    @Override
-    public String toString() {
-        if (previous == null) {
-            if (next == null) {
-                return N.toString(this.value());
-            } else {
-                return N.concat(N.toString(this.value()), "[, ", N.toString(next), "]");
-            }
-        } else {
-            if (next == null) {
-                return N.concat(N.toString(this.value()), "[", N.toString(previous), ", ]");
-            } else {
-                return N.concat(N.toString(this.value()), "[", N.toString(previous), ", ", N.toString(next), "]");
-            }
-        }
-    }
+    //    @Override
+    //    public String toString() {
+    //        if (previous == null) {
+    //            if (next == null) {
+    //                return N.toString(this.value());
+    //            } else {
+    //                return N.concat(N.toString(this.value()), "[, ", N.toString(next), "]");
+    //            }
+    //        } else {
+    //            if (next == null) {
+    //                return N.concat(N.toString(this.value()), "[", N.toString(previous), ", ]");
+    //            } else {
+    //                return N.concat(N.toString(this.value()), "[", N.toString(previous), ", ", N.toString(next), "]");
+    //            }
+    //        }
+    //    }
 }

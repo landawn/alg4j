@@ -3,7 +3,7 @@ package com.landawn.alg4j.util;
 import com.landawn.abacus.util.N;
 import com.landawn.abacus.util.Try;
 
-public class LinkedNode<T> extends MutableNode<T> {
+public class LinkedNode<T> extends Node<T> {
     private LinkedNode<T> next;
 
     public LinkedNode(T value) {
@@ -65,8 +65,8 @@ public class LinkedNode<T> extends MutableNode<T> {
         return false;
     }
 
-    @Override
-    public String toString() {
-        return next == null ? N.toString(this.value()) : N.concat(N.toString(this.value()), N.toString(next));
-    }
+    //    @Override
+    //    public String toString() {
+    //        return next == null ? N.toString(this.value()) : N.concat(N.toString(this.value()), N.toString(next));
+    //    }
 }
