@@ -2,23 +2,74 @@ package com.landawn.alg4j.util;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.landawn.abacus.util.Comparators;
 import com.landawn.abacus.util.IntPair;
+import com.landawn.abacus.util.Math2;
+import com.landawn.abacus.util.MutableDouble;
+import com.landawn.abacus.util.MutableInt;
+import com.landawn.abacus.util.MutableLong;
 import com.landawn.abacus.util.N;
+import com.landawn.abacus.util.Nullable;
 import com.landawn.abacus.util.Optional;
 import com.landawn.abacus.util.OptionalDouble;
 import com.landawn.abacus.util.OptionalInt;
 import com.landawn.abacus.util.OptionalLong;
 import com.landawn.abacus.util.Pair;
+import com.landawn.abacus.util.function.IntBiFunction;
+import com.landawn.abacus.util.function.IntBiPredicate;
+import com.landawn.abacus.util.function.LongPredicate;
+import com.landawn.abacus.util.function.QuadFunction;
+import com.landawn.abacus.util.stream.IntStream;
+import com.landawn.abacus.util.stream.LongStream;
 import com.landawn.abacus.util.stream.Stream;
 
 public final class II {
+
+    private static final LongPredicate IS_PRIME = new LongPredicate() {
+        @Override
+        public boolean test(long value) {
+            return isPrime(value);
+        }
+    };
+
     private II() {
         // utility class.
+    }
+
+    public static boolean isPrime(final long n) {
+        return Math2.isPrime(n);
+    }
+
+    /**
+     * Returns the primes less than the specified long {@code to}.
+     * 
+     * @param exclusiveTo
+     * @return
+     */
+    public static LongStream primes(final long exclusiveTo) {
+        return primes(0, exclusiveTo);
+    }
+
+    /**
+     * Returns the primes in the specified range: {@code [inclusiveFrom, exclusiveTo)}.
+     * 
+     * @param inclusiveFrom
+     * @param exclusiveTo
+     * @return
+     */
+    public static LongStream primes(final long inclusiveFrom, final long exclusiveTo) {
+        if (exclusiveTo - inclusiveFrom <= 10_000) {
+            return LongStream.of(java.util.stream.LongStream.range(inclusiveFrom, exclusiveTo).filter(IS_PRIME));
+        } else {
+            return LongStream.of(java.util.stream.LongStream.range(inclusiveFrom, exclusiveTo).parallel().filter(IS_PRIME));
+        }
     }
 
     /**
@@ -316,11 +367,11 @@ public final class II {
 
     /**
      * 
-     * @param s
+     * @param str
      * @return an empty {@code Stream} if the specified {@code CharSequence} is {@code null} or empty.
      */
-    public static Stream<String> longestSubstringsWithoutRepeatingCharacters(final CharSequence s) {
-        if (N.isNullOrEmpty(s)) {
+    public static Stream<IntPair> indicesOfLongestSubstringsWithoutRepeatingCharacters(final CharSequence str) {
+        if (N.isNullOrEmpty(str)) {
             return Stream.empty();
         }
 
@@ -329,8 +380,8 @@ public final class II {
         int maxLength = 0;
         int cnt = 0;
 
-        for (int i = 0, len = s.length(); i < len; i++) {
-            char ch = s.charAt(i);
+        for (int i = 0, len = str.length(); i < len; i++) {
+            char ch = str.charAt(i);
             Integer idx = charPositionMap.get(ch);
 
             if (idx == null || i - idx > cnt) {
@@ -357,9 +408,717 @@ public final class II {
         }
 
         if (cnt >= maxLength) {
-            startEndPositionsList.add(IntPair.of(s.length() - cnt, s.length()));
+            startEndPositionsList.add(IntPair.of(str.length() - cnt, str.length()));
         }
 
-        return Stream.of(startEndPositionsList).map(p -> s.subSequence(p._1, p._2).toString());
+        return Stream.of(startEndPositionsList);
+    }
+
+    /**
+     * 
+     * @param str
+     * @return an empty {@code Stream} if the specified {@code CharSequence} is {@code null} or empty.
+     */
+    public static Stream<String> longestSubstringsWithoutRepeatingCharacters(final CharSequence str) {
+        return indicesOfLongestSubstringsWithoutRepeatingCharacters(str).map(p -> str.subSequence(p._1, p._2).toString());
+    }
+
+    /**
+     * <code>indicesOfBracketedSubstrings("3[a2[c]]2[a]", '[', ']') => [[2, 7], [10, 11]]</code>
+     * 
+     * @param str
+     * @param prefix
+     * @param postfix
+     * @return
+     */
+    public static Stream<IntPair> indicesOfBracketedSubstrings(final CharSequence str, final char prefix, final char postfix) {
+        if (N.isNullOrEmpty(str)) {
+            return Stream.empty();
+        }
+
+        return Stream.of(N.findAllIndices(str.toString(), 0, str.length(), prefix, postfix));
+    }
+
+    //    @SuppressWarnings("deprecation")
+    //    private static List<IntPair> findAllIndices(final String str, final int fromIndex, final int toIndex, final char prefix, final char postfix) {
+    //        N.checkFromToIndex(fromIndex, toIndex, str == null ? 0 : str.length());
+    //
+    //        final List<IntPair> res = new ArrayList<>();
+    //
+    //        if (N.isNullOrEmpty(str)) {
+    //            return res;
+    //        }
+    //
+    //        int idx = str.indexOf(prefix, fromIndex);
+    //
+    //        if (idx < 0) {
+    //            return res;
+    //        }
+    //
+    //        final char[] chs = N.getCharsForReadOnly(str);
+    //        final Deque<Integer> queue = new LinkedList<>();
+    //
+    //        for (int i = idx; i < toIndex; i++) {
+    //            if (chs[i] == prefix) {
+    //                queue.push(i + 1);
+    //            } else if (chs[i] == postfix && queue.size() > 0) {
+    //                final int startIndex = queue.pop();
+    //
+    //                if (res.size() > 0 && startIndex < res.get(res.size() - 1)._1) {
+    //                    while (res.size() > 0 && startIndex < res.get(res.size() - 1)._1) {
+    //                        res.remove(res.size() - 1);
+    //                    }
+    //                }
+    //
+    //                res.add(IntPair.of(startIndex, i));
+    //            }
+    //        }
+    //
+    //        return res;
+    //    }
+
+    /**
+     * <code>indicesOfBracketedSubstrings("3[a2[c]]2[a]", "[", "]") => [[2, 7], [10, 11]]</code>
+     * 
+     * @param str
+     * @param prefix
+     * @param postfix
+     * @return
+     */
+    public static Stream<IntPair> indicesOfBracketedSubstrings(final CharSequence str, final String prefix, final String postfix) {
+        if (N.isNullOrEmpty(str)) {
+            return Stream.empty();
+        }
+
+        return Stream.of(N.findAllIndices(str.toString(), 0, str.length(), prefix, postfix));
+    }
+
+    //    /**
+    //     * 
+    //     * <code>findAllIndices("3[a2[c]]2[a]", '[', ']') = [[2, 7], [10, 11]]</code>
+    //     * 
+    //     * @param str
+    //     * @param fromIndex
+    //     * @param toIndex
+    //     * @param prefix
+    //     * @param postfix
+    //     * @return
+    //     */
+    //    private static List<IntPair> findAllIndices(final String str, final int fromIndex, final int toIndex, final String prefix, final String postfix) {
+    //        N.checkFromToIndex(fromIndex, toIndex, str == null ? 0 : str.length());
+    //
+    //        final List<IntPair> res = new ArrayList<>();
+    //
+    //        if (N.isNullOrEmpty(str)) {
+    //            return res;
+    //        }
+    //
+    //        int idx = str.indexOf(prefix, fromIndex);
+    //
+    //        if (idx < 0) {
+    //            return res;
+    //        }
+    //
+    //        final Deque<Integer> queue = new LinkedList<>();
+    //        queue.add(idx + prefix.length());
+    //        int next = -1;
+    //
+    //        for (int i = idx + prefix.length(), len = toIndex; i < len;) {
+    //            if (queue.size() == 0) {
+    //                idx = next >= i ? next : str.indexOf(prefix, i);
+    //
+    //                if (idx < 0) {
+    //                    break;
+    //                } else {
+    //                    queue.add(idx + prefix.length());
+    //                    i = idx + prefix.length();
+    //                }
+    //            }
+    //
+    //            idx = str.indexOf(postfix, i);
+    //
+    //            if (idx < 0) {
+    //                break;
+    //            } else {
+    //                final int endIndex = idx;
+    //                idx = res.size() > 0 ? Math.max(res.get(res.size() - 1)._2 + postfix.length(), queue.peekLast()) : queue.peekLast();
+    //
+    //                while ((idx = str.indexOf(prefix, idx)) >= 0 && idx < endIndex) {
+    //                    queue.push(idx + prefix.length());
+    //                    idx = idx + prefix.length();
+    //                }
+    //
+    //                if (idx > 0) {
+    //                    next = idx;
+    //                }
+    //
+    //                final int startIndex = queue.pop();
+    //
+    //                if (res.size() > 0 && startIndex < res.get(res.size() - 1)._1) {
+    //                    while (res.size() > 0 && startIndex < res.get(res.size() - 1)._1) {
+    //                        res.remove(res.size() - 1);
+    //                    }
+    //                }
+    //
+    //                res.add(IntPair.of(startIndex, endIndex));
+    //
+    //                i = endIndex + postfix.length();
+    //            }
+    //        }
+    //
+    //        return res;
+    //    }
+
+    /**
+     * 
+     * <code>bracketedSubstrings("3[a2[c]]2[a]", '[', ']') => ["a2[c]", "a"]</code>
+     * 
+     * @param str
+     * @param prefix
+     * @param postfix
+     * @return
+     */
+    public static Stream<String> bracketedSubstrings(final CharSequence str, final char prefix, final char postfix) {
+        return indicesOfBracketedSubstrings(str, prefix, postfix).map(p -> str.subSequence(p._1, p._2).toString());
+    }
+
+    /**
+     * 
+     * <code>bracketedSubstrings("3[a2[c]]2[a]", "[", "]") => ["a2[c]", "a"]</code>
+     * 
+     * @param str
+     * @param prefix
+     * @param postfix
+     * @return
+     */
+    public static Stream<String> bracketedSubstrings(final CharSequence str, final String prefix, final String postfix) {
+        return indicesOfBracketedSubstrings(str, prefix, postfix).map(p -> str.subSequence(p._1, p._2).toString());
+    }
+
+    public static boolean isPalindrome(final CharSequence str) {
+        if (N.isNullOrEmpty(str)) {
+            return true;
+        }
+
+        for (int i = 0, j = str.length() - 1; i < j; i++, j--) {
+            if (str.charAt(i) != str.charAt(j)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean isPalindrome(final CharSequence str, final int inclusiveFromIndex, final int exclusiveToIndex) {
+        N.checkFromToIndex(inclusiveFromIndex, exclusiveToIndex, str == null ? 0 : str.length());
+
+        if (N.isNullOrEmpty(str)) {
+            return true;
+        }
+
+        for (int i = inclusiveFromIndex, j = exclusiveToIndex - 1; i < j; i++, j--) {
+            if (str.charAt(i) != str.charAt(j)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static Stream<IntPair> indicesOfLongestPalindromeSubstrings(final CharSequence str) {
+        final List<IntPair> startEndPositionsList = new ArrayList<>();
+        int maxLength = 0;
+
+        for (int i = 0, len = str.length(); i < len; i++) {
+            int tmp = lengthOfLongestPalindromeSubstrings(str, i, 0);
+
+            if (tmp > maxLength) {
+                startEndPositionsList.clear();
+            }
+
+            if (tmp >= maxLength) {
+                startEndPositionsList.add(IntPair.of(i - (tmp - 1) / 2, i + ((tmp - 1) / 2) + 1));
+            }
+
+            maxLength = Math.max(maxLength, tmp);
+
+            int tmp2 = lengthOfLongestPalindromeSubstrings(str, i, 1);
+
+            if (tmp2 > maxLength) {
+                startEndPositionsList.clear();
+            }
+
+            if (tmp2 >= maxLength) {
+                startEndPositionsList.add(IntPair.of(i - (tmp2 - 1) / 2, i + (tmp2 / 2) + 1));
+            }
+
+            maxLength = Math.max(maxLength, tmp2);
+        }
+
+        return Stream.of(startEndPositionsList);
+    }
+
+    private static int lengthOfLongestPalindromeSubstrings(CharSequence str, int fromIndex, int shift) {
+        int res = shift - 1;
+
+        for (int left = fromIndex, right = fromIndex + shift, len = str.length(); left >= 0 && right < len
+                && str.charAt(left) == str.charAt(right); left--, right++) {
+            res += 2;
+        }
+
+        return res;
+    }
+
+    public static Stream<String> longestPalindromeSubstrings(final CharSequence str) {
+        return indicesOfLongestPalindromeSubstrings(str).map(p -> str.subSequence(p._1, p._2).toString());
+    }
+
+    public static OptionalInt uniquePathsOnGrid(final int height, final int width) {
+        return uniquePathsOnGrid(height, width, IntBiPredicate.ALWAYS_FALSE);
+    }
+
+    /**
+     * @param height
+     * @param width
+     * @param isObstacle the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalInt uniquePathsOnGrid(final int height, final int width, final IntBiPredicate isObstacle) {
+        N.requireNonNull(isObstacle);
+
+        if (height == 0 || width == 0) {
+            return OptionalInt.empty();
+        }
+
+        final MutableInt[] dp = new MutableInt[width];
+        IntStream.range(0, width).forEach(i -> dp[i] = MutableInt.of(0));
+        dp[0] = MutableInt.of(1);
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (isObstacle.test(i, j)) {
+                    dp[j] = null;
+                } else if (j > 0 && (dp[j] != null || dp[j - 1] != null)) {
+                    if (dp[j] == null) {
+                        dp[j] = MutableInt.of(dp[j - 1].value());
+                    } else if (dp[j - 1] == null) {
+                        // ignore.
+                    } else {
+                        dp[j].setValue(dp[j].value() + dp[j - 1].value());
+                    }
+                }
+            }
+        }
+
+        return dp[width - 1] == null ? OptionalInt.empty() : OptionalInt.of(dp[width - 1].value());
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toInt the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalInt minPathSumIntOnGrid(final int height, final int width, final IntBiFunction<Integer> toInt) {
+        return minPathSumIntOnGrid(height, width, toInt, IntBiPredicate.ALWAYS_FALSE);
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toInt the first parameter is the row index, and the second number is column index.
+     * @param isObstacle the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalInt minPathSumIntOnGrid(final int height, final int width, final IntBiFunction<Integer> toInt, final IntBiPredicate isObstacle) {
+        N.requireNonNull(toInt);
+        N.requireNonNull(isObstacle);
+
+        if (height == 0 || width == 0) {
+            return OptionalInt.empty();
+        }
+
+        final MutableInt[] dp = new MutableInt[width];
+        IntStream.range(0, width).forEach(i -> dp[i] = MutableInt.of(Integer.MAX_VALUE));
+        dp[0] = MutableInt.of(0);
+
+        for (int i = 0; i < height; i++) {
+            if (isObstacle.test(i, 0)) {
+                dp[0] = null;
+            } else if (dp[0] != null) {
+                dp[0].add(toInt.apply(i, 0));
+            }
+
+            for (int j = 1; j < width; j++) {
+                if (isObstacle.test(i, j)) {
+                    dp[j] = null;
+                } else if (dp[j - 1] != null || dp[j] != null) {
+                    if (dp[j] == null) {
+                        dp[j] = MutableInt.of(dp[j - 1].value() + toInt.apply(i, j));
+                    } else if (dp[j - 1] == null) {
+                        dp[j].add(toInt.apply(i, j));
+                    } else {
+                        dp[j].setValue(Math.min(dp[j].value(), dp[j - 1].value()) + toInt.apply(i, j));
+                    }
+                }
+            }
+        }
+
+        return dp[width - 1] == null ? OptionalInt.empty() : OptionalInt.of(dp[width - 1].value());
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toLong the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalLong minPathSumLongOnGrid(final int height, final int width, final IntBiFunction<Long> toLong) {
+        return minPathSumLongOnGrid(height, width, toLong, IntBiPredicate.ALWAYS_FALSE);
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toLong the first parameter is the row index, and the second number is column index.
+     * @param isObstacle the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalLong minPathSumLongOnGrid(final int height, final int width, final IntBiFunction<Long> toLong, final IntBiPredicate isObstacle) {
+        N.requireNonNull(toLong);
+        N.requireNonNull(isObstacle);
+
+        if (height == 0 || width == 0) {
+            return OptionalLong.empty();
+        }
+
+        final MutableLong[] dp = new MutableLong[width];
+        IntStream.range(0, width).forEach(i -> dp[i] = MutableLong.of(Long.MAX_VALUE));
+        dp[0] = MutableLong.of(0);
+
+        for (int i = 0; i < height; i++) {
+            if (isObstacle.test(i, 0)) {
+                dp[0] = null;
+            } else if (dp[0] != null) {
+                dp[0].add(toLong.apply(i, 0));
+            }
+
+            for (int j = 1; j < width; j++) {
+                if (isObstacle.test(i, j)) {
+                    dp[j] = null;
+                } else if (dp[j - 1] != null || dp[j] != null) {
+                    if (dp[j] == null) {
+                        dp[j] = MutableLong.of(dp[j - 1].value() + toLong.apply(i, j));
+                    } else if (dp[j - 1] == null) {
+                        dp[j].add(toLong.apply(i, j));
+                    } else {
+                        dp[j].setValue(Math.min(dp[j].value(), dp[j - 1].value()) + toLong.apply(i, j));
+                    }
+                }
+            }
+        }
+
+        return dp[width - 1] == null ? OptionalLong.empty() : OptionalLong.of(dp[width - 1].value());
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toDouble the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalDouble minPathSumDoubleOnGrid(final int height, final int width, final IntBiFunction<Double> toDouble) {
+        return minPathSumDoubleOnGrid(height, width, toDouble, IntBiPredicate.ALWAYS_FALSE);
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toDouble the first parameter is the row index, and the second number is column index.
+     * @param isObstacle the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalDouble minPathSumDoubleOnGrid(final int height, final int width, final IntBiFunction<Double> toDouble,
+            final IntBiPredicate isObstacle) {
+        N.requireNonNull(toDouble);
+        N.requireNonNull(isObstacle);
+
+        if (height == 0 || width == 0) {
+            return OptionalDouble.empty();
+        }
+
+        final MutableDouble[] dp = new MutableDouble[width];
+        IntStream.range(0, width).forEach(i -> dp[i] = MutableDouble.of(Double.MAX_VALUE));
+        dp[0] = MutableDouble.of(0);
+
+        for (int i = 0; i < height; i++) {
+            if (isObstacle.test(i, 0)) {
+                dp[0] = null;
+            } else if (dp[0] != null) {
+                dp[0].add(toDouble.apply(i, 0));
+            }
+
+            for (int j = 1; j < width; j++) {
+                if (isObstacle.test(i, j)) {
+                    dp[j] = null;
+                } else if (dp[j - 1] != null || dp[j] != null) {
+                    if (dp[j] == null) {
+                        dp[j] = MutableDouble.of(dp[j - 1].value() + toDouble.apply(i, j));
+                    } else if (dp[j - 1] == null) {
+                        dp[j].add(toDouble.apply(i, j));
+                    } else {
+                        dp[j].setValue(Math.min(dp[j].value(), dp[j - 1].value()) + toDouble.apply(i, j));
+                    }
+                }
+            }
+        }
+
+        return dp[width - 1] == null ? OptionalDouble.empty() : OptionalDouble.of(dp[width - 1].value());
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toInt the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalInt maxPathSumIntOnGrid(final int height, final int width, final IntBiFunction<Integer> toInt) {
+        return maxPathSumIntOnGrid(height, width, toInt, IntBiPredicate.ALWAYS_FALSE);
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toInt the first parameter is the row index, and the second number is column index.
+     * @param isObstacle the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalInt maxPathSumIntOnGrid(final int height, final int width, final IntBiFunction<Integer> toInt, final IntBiPredicate isObstacle) {
+        N.requireNonNull(toInt);
+        N.requireNonNull(isObstacle);
+
+        if (height == 0 || width == 0) {
+            return OptionalInt.empty();
+        }
+
+        final MutableInt[] dp = new MutableInt[width];
+        IntStream.range(0, width).forEach(i -> dp[i] = MutableInt.of(Integer.MIN_VALUE));
+        dp[0] = MutableInt.of(0);
+
+        for (int i = 0; i < height; i++) {
+            if (isObstacle.test(i, 0)) {
+                dp[0] = null;
+            } else if (dp[0] != null) {
+                dp[0].add(toInt.apply(i, 0));
+            }
+
+            for (int j = 1; j < width; j++) {
+                if (isObstacle.test(i, j)) {
+                    dp[j] = null;
+                } else if (dp[j - 1] != null || dp[j] != null) {
+                    if (dp[j] == null) {
+                        dp[j] = MutableInt.of(dp[j - 1].value() + toInt.apply(i, j));
+                    } else if (dp[j - 1] == null) {
+                        dp[j].add(toInt.apply(i, j));
+                    } else {
+                        dp[j].setValue(Math.max(dp[j].value(), dp[j - 1].value()) + toInt.apply(i, j));
+                    }
+                }
+            }
+        }
+
+        return dp[width - 1] == null ? OptionalInt.empty() : OptionalInt.of(dp[width - 1].value());
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toLong the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalLong maxPathSumLongOnGrid(final int height, final int width, final IntBiFunction<Long> toLong) {
+        return maxPathSumLongOnGrid(height, width, toLong, IntBiPredicate.ALWAYS_FALSE);
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toLong the first parameter is the row index, and the second number is column index.
+     * @param isObstacle the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalLong maxPathSumLongOnGrid(final int height, final int width, final IntBiFunction<Long> toLong, final IntBiPredicate isObstacle) {
+        N.requireNonNull(toLong);
+        N.requireNonNull(isObstacle);
+
+        if (height == 0 || width == 0) {
+            return OptionalLong.empty();
+        }
+
+        final MutableLong[] dp = new MutableLong[width];
+        IntStream.range(0, width).forEach(i -> dp[i] = MutableLong.of(Long.MIN_VALUE));
+        dp[0] = MutableLong.of(0);
+
+        for (int i = 0; i < height; i++) {
+            if (isObstacle.test(i, 0)) {
+                dp[0] = null;
+            } else if (dp[0] != null) {
+                dp[0].add(toLong.apply(i, 0));
+            }
+
+            for (int j = 1; j < width; j++) {
+                if (isObstacle.test(i, j)) {
+                    dp[j] = null;
+                } else if (dp[j - 1] != null || dp[j] != null) {
+                    if (dp[j] == null) {
+                        dp[j] = MutableLong.of(dp[j - 1].value() + toLong.apply(i, j));
+                    } else if (dp[j - 1] == null) {
+                        dp[j].add(toLong.apply(i, j));
+                    } else {
+                        dp[j].setValue(Math.max(dp[j].value(), dp[j - 1].value()) + toLong.apply(i, j));
+                    }
+                }
+            }
+        }
+
+        return dp[width - 1] == null ? OptionalLong.empty() : OptionalLong.of(dp[width - 1].value());
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toDouble the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalDouble maxPathSumDoubleOnGrid(final int height, final int width, final IntBiFunction<Double> toDouble) {
+        return maxPathSumDoubleOnGrid(height, width, toDouble, IntBiPredicate.ALWAYS_FALSE);
+    }
+
+    /**
+     * 
+     * @param height
+     * @param width
+     * @param toDouble the first parameter is the row index, and the second number is column index.
+     * @param isObstacle the first parameter is the row index, and the second number is column index.
+     * @return
+     */
+    public static OptionalDouble maxPathSumDoubleOnGrid(final int height, final int width, final IntBiFunction<Double> toDouble,
+            final IntBiPredicate isObstacle) {
+        N.requireNonNull(toDouble);
+        N.requireNonNull(isObstacle);
+
+        if (height == 0 || width == 0) {
+            return OptionalDouble.empty();
+        }
+
+        final MutableDouble[] dp = new MutableDouble[width];
+        IntStream.range(0, width).forEach(i -> dp[i] = MutableDouble.of(Double.MIN_VALUE));
+        dp[0] = MutableDouble.of(0);
+
+        for (int i = 0; i < height; i++) {
+            if (isObstacle.test(i, 0)) {
+                dp[0] = null;
+            } else if (dp[0] != null) {
+                dp[0].add(toDouble.apply(i, 0));
+            }
+
+            for (int j = 1; j < width; j++) {
+                if (isObstacle.test(i, j)) {
+                    dp[j] = null;
+                } else if (dp[j - 1] != null || dp[j] != null) {
+                    if (dp[j] == null) {
+                        dp[j] = MutableDouble.of(dp[j - 1].value() + toDouble.apply(i, j));
+                    } else if (dp[j - 1] == null) {
+                        dp[j].add(toDouble.apply(i, j));
+                    } else {
+                        dp[j].setValue(Math.max(dp[j].value(), dp[j - 1].value()) + toDouble.apply(i, j));
+                    }
+                }
+            }
+        }
+
+        return dp[width - 1] == null ? OptionalDouble.empty() : OptionalDouble.of(dp[width - 1].value());
+    }
+
+    /**
+     * Evaluate the value of an arithmetic expression in Reverse Polish Notation
+     * 
+     * <pre>
+     * <code>Set&lt;String&gt; binaryOperators = N.asSet("+", "-", "*", "/");
+     * final QuadFunction<Integer, Integer, Integer, String, Integer> operation = (a, b, c, t) -> {
+     *     switch (t) {
+     *         case "+":
+     *             return a + b;
+     *         case "-":
+     *             return a - b;
+     *         case "*":
+     *             return a * b;
+     *         case "/":
+     *             return a / b;
+     *         default:
+     *             return Integer.valueOf(t);
+     *     }
+     * };
+     * 
+     * II.evalRPN(N.asList("2", "1", "+", "3", "*"), null, binaryOperators, null, operation).ifPresent(Fn.println()); // -> 9
+     * II.evalRPN(N.asList("4", "13", "5", "/", "+"), null, binaryOperators, null, operation).ifPresent(Fn.println()); // -> 6    
+     * </code>
+     * </pre>
+     * 
+     * @param tokens
+     * @param unaryOperators it's better defined as {@code constant(static final)}.
+     * @param binaryOperators it's better defined as {@code constant(static final)}.
+     * @param ternaryOperators it's better defined as {@code constant(static final)}.
+     * @param operation it's better defined as {@code constant(static final)}.
+     * @return
+     */
+    public static <T, R> Nullable<R> evalRPN(final List<T> tokens, final Set<?> unaryOperators, final Set<?> binaryOperators, final Set<?> ternaryOperators,
+            final QuadFunction<? super R, ? super R, ? super R, ? super T, R> operation) {
+        N.requireNonNull(operation);
+
+        if (N.isNullOrEmpty(tokens)) {
+            return Nullable.empty();
+        }
+
+        final boolean hasUnaryOperators = N.notNullOrEmpty(unaryOperators);
+        final boolean hasBinaryOperators = N.notNullOrEmpty(binaryOperators);
+        final boolean hasTernaryOperators = N.notNullOrEmpty(ternaryOperators);
+
+        final Deque<R> stack = new LinkedList<>();
+        R a = null, b = null, c = null;
+
+        for (T token : tokens) {
+            if (hasBinaryOperators && binaryOperators.contains(token)) {
+                b = stack.pop();
+                a = stack.pop();
+
+                stack.push(operation.apply(a, b, null, token));
+            } else if (hasUnaryOperators && unaryOperators.contains(token)) {
+                a = stack.pop();
+
+                stack.push(operation.apply(a, null, null, token));
+            } else if (hasTernaryOperators && ternaryOperators.contains(token)) {
+                c = stack.pop();
+                b = stack.pop();
+                a = stack.pop();
+
+                stack.push(operation.apply(a, b, c, token));
+            } else {
+                stack.push(operation.apply(null, null, null, token));
+            }
+        }
+
+        return Nullable.of(stack.pop());
     }
 }

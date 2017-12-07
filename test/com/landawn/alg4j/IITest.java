@@ -1,12 +1,19 @@
 package com.landawn.alg4j;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.Test;
 
 import com.landawn.abacus.util.Array;
 import com.landawn.abacus.util.Fn;
 import com.landawn.abacus.util.N;
+import com.landawn.abacus.util.Profiler;
+import com.landawn.abacus.util.function.QuadFunction;
 import com.landawn.alg4j.util.II;
 
 public class IITest {
@@ -39,6 +46,117 @@ public class IITest {
         II.longestSubstringsWithoutRepeatingCharacters("abcabca").forEach(Fn.println());
         N.println(N.repeat('=', 80));
         II.longestSubstringsWithoutRepeatingCharacters("abcabcad").forEach(Fn.println());
+
+        N.println(N.findAllIndices("adb[12[3]]", "[", "]"));
+        N.println(N.findAll("adb[12[3]", "[", "]"));
+    }
+
+    @Test
+    public void test_bracketedSubstrings() {
+        II.bracketedSubstrings("3[a2[c]]2[a]", '[', ']').forEach(Fn.println());
+    }
+
+    @Test
+    public void test_isPalindrome() {
+        assertTrue(II.isPalindrome(null));
+        assertTrue(II.isPalindrome(""));
+        assertTrue(II.isPalindrome("a"));
+        assertTrue(II.isPalindrome("aa"));
+        assertTrue(II.isPalindrome("aaa"));
+        assertTrue(II.isPalindrome("aba"));
+        assertTrue(II.isPalindrome("abba"));
+        assertFalse(II.isPalindrome("abb"));
+        assertFalse(II.isPalindrome("ab"));
+        assertFalse(II.isPalindrome("abc"));
+    }
+
+    @Test
+    public void test_longestPalindromeSubstrings() {
+        II.longestPalindromeSubstrings("ab").forEach(Fn.println());
+        N.println(N.repeat('=', 80));
+        II.longestPalindromeSubstrings("aa").forEach(Fn.println());
+        N.println(N.repeat('=', 80));
+        II.longestPalindromeSubstrings("aabb").forEach(Fn.println());
+        N.println(N.repeat('=', 80));
+        II.longestPalindromeSubstrings("abba").forEach(Fn.println());
+        N.println(N.repeat('=', 80));
+        II.longestPalindromeSubstrings("bbab").forEach(Fn.println());
+        N.println(N.repeat('=', 80));
+        II.longestPalindromeSubstrings("aaab").forEach(Fn.println());
+        N.println(N.repeat('=', 80));
+        II.longestPalindromeSubstrings("abb").forEach(Fn.println());
+        N.println(N.repeat('=', 80));
+        II.longestPalindromeSubstrings("aabcc").forEach(Fn.println());
+    }
+
+    @Test
+    public void test_primes() {
+        II.primes(100, 100).forEach(N::println);
+        N.println(N.repeat('=', 80));
+        II.primes(100, 200).forEach(N::println);
+        N.println(N.repeat('=', 80));
+        assertEquals(78498, II.primes(1000_000).count());
+
+        //        Profiler.run(1, 1, 1, "1000_000", () -> assertTrue(II.primes(1000_000).count() >= 78498)).printResult();
+        //
+        //        Profiler.run(1, 1, 1, "10_000_000", () -> assertTrue(II.primes(10_000_000).count() >= 78498)).printResult();
+        //
+        //        Profiler.run(1, 10, 1, "9_900", () -> assertTrue(II.primes(9_900).count() >= 100)).printResult();
+        //        Profiler.run(1, 10, 1, "10_100", () -> assertTrue(II.primes(10_100).count() >= 100)).printResult();
+        Profiler.run(1, 1, 1, "10_100", () -> assertTrue(II.primes(10_0000_000_100l).count() >= 100)).printResult();
+    }
+
+    @Test
+    public void test_uniquePathsOnGrid() {
+        II.uniquePathsOnGrid(1, 1).ifPresent(N::println);
+        II.uniquePathsOnGrid(1, 2).ifPresent(N::println);
+        II.uniquePathsOnGrid(2, 1).ifPresent(N::println);
+        II.uniquePathsOnGrid(2, 2).ifPresent(N::println);
+        II.uniquePathsOnGrid(3, 2).ifPresent(N::println);
+        II.uniquePathsOnGrid(3, 3).ifPresent(N::println);
+    }
+
+    @Test
+    public void test_minPathSumIntOnGrid() {
+        II.minPathSumIntOnGrid(1, 1, (i, j) -> 1).ifPresent(N::println);
+        II.minPathSumIntOnGrid(1, 2, (i, j) -> 1).ifPresent(N::println);
+        II.minPathSumIntOnGrid(2, 1, (i, j) -> 1).ifPresent(N::println);
+        II.minPathSumIntOnGrid(2, 2, (i, j) -> 1).ifPresent(N::println);
+        II.minPathSumIntOnGrid(3, 2, (i, j) -> 1).ifPresent(N::println);
+        II.minPathSumIntOnGrid(3, 3, (i, j) -> 1).ifPresent(N::println);
+    }
+
+    @Test
+    public void test_maxPathSumIntOnGrid() {
+        II.maxPathSumIntOnGrid(1, 1, (i, j) -> 1).ifPresent(N::println);
+        II.maxPathSumIntOnGrid(1, 2, (i, j) -> 1).ifPresent(N::println);
+        II.maxPathSumIntOnGrid(2, 1, (i, j) -> 1).ifPresent(N::println);
+        II.maxPathSumIntOnGrid(2, 2, (i, j) -> 1).ifPresent(N::println);
+        II.maxPathSumIntOnGrid(3, 2, (i, j) -> 1).ifPresent(N::println);
+        II.maxPathSumIntOnGrid(3, 3, (i, j) -> 1).ifPresent(N::println);
+    }
+
+    @Test
+    public void test_evalRPN() {
+
+        final Set<String> binaryOperators = N.asSet("+", "-", "*", "/");
+        final QuadFunction<Integer, Integer, Integer, String, Integer> operation = (a, b, c, t) -> {
+            switch (t) {
+                case "+":
+                    return a + b;
+                case "-":
+                    return a - b;
+                case "*":
+                    return a * b;
+                case "/":
+                    return a / b;
+                default:
+                    return Integer.valueOf(t);
+            }
+        };
+
+        II.evalRPN(N.asList("2", "1", "+", "3", "*"), null, binaryOperators, null, operation).ifPresent(Fn.println()); // -> 9
+        II.evalRPN(N.asList("4", "13", "5", "/", "+"), null, binaryOperators, null, operation).ifPresent(Fn.println()); // -> 6
     }
 
 }
