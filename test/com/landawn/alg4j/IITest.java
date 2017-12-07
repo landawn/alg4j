@@ -108,32 +108,40 @@ public class IITest {
 
     @Test
     public void test_uniquePathsOnGrid() {
-        II.uniquePathsOnGrid(1, 1).ifPresent(N::println);
-        II.uniquePathsOnGrid(1, 2).ifPresent(N::println);
-        II.uniquePathsOnGrid(2, 1).ifPresent(N::println);
-        II.uniquePathsOnGrid(2, 2).ifPresent(N::println);
-        II.uniquePathsOnGrid(3, 2).ifPresent(N::println);
-        II.uniquePathsOnGrid(3, 3).ifPresent(N::println);
+        II.uniqueGridPaths(1, 1).ifPresent(N::println);
+        II.uniqueGridPaths(1, 2).ifPresent(N::println);
+        II.uniqueGridPaths(2, 1).ifPresent(N::println);
+        II.uniqueGridPaths(2, 2).ifPresent(N::println);
+        II.uniqueGridPaths(3, 2).ifPresent(N::println);
+        II.uniqueGridPaths(3, 3).ifPresent(N::println);
     }
 
     @Test
     public void test_minPathSumIntOnGrid() {
-        II.minPathSumIntOnGrid(1, 1, (i, j) -> 1).ifPresent(N::println);
-        II.minPathSumIntOnGrid(1, 2, (i, j) -> 1).ifPresent(N::println);
-        II.minPathSumIntOnGrid(2, 1, (i, j) -> 1).ifPresent(N::println);
-        II.minPathSumIntOnGrid(2, 2, (i, j) -> 1).ifPresent(N::println);
-        II.minPathSumIntOnGrid(3, 2, (i, j) -> 1).ifPresent(N::println);
-        II.minPathSumIntOnGrid(3, 3, (i, j) -> 1).ifPresent(N::println);
+        II.minGridPathSumInt(1, 1, (i, j) -> 1).ifPresent(N::println);
+        II.minGridPathSumInt(1, 2, (i, j) -> 1).ifPresent(N::println);
+        II.minGridPathSumInt(2, 1, (i, j) -> 1).ifPresent(N::println);
+        II.minGridPathSumInt(2, 2, (i, j) -> 1).ifPresent(N::println);
+        II.minGridPathSumInt(3, 2, (i, j) -> 1).ifPresent(N::println);
+        II.minGridPathSumInt(3, 3, (i, j) -> 1).ifPresent(N::println);
+
+        final int[][] a = { { 1, 1, 2 }, { 1, 2, 1 }, { 5, 1, 1 } };
+        II.minGridPathSumInt(3, 3, (i, j) -> a[i][j]).ifPresent(N::println);
+        II.minGridPathSumInt(3, 3, (i, j) -> a[i][j], (i, j) -> a[i][j] == 2).ifPresent(N::println);
     }
 
     @Test
     public void test_maxPathSumIntOnGrid() {
-        II.maxPathSumIntOnGrid(1, 1, (i, j) -> 1).ifPresent(N::println);
-        II.maxPathSumIntOnGrid(1, 2, (i, j) -> 1).ifPresent(N::println);
-        II.maxPathSumIntOnGrid(2, 1, (i, j) -> 1).ifPresent(N::println);
-        II.maxPathSumIntOnGrid(2, 2, (i, j) -> 1).ifPresent(N::println);
-        II.maxPathSumIntOnGrid(3, 2, (i, j) -> 1).ifPresent(N::println);
-        II.maxPathSumIntOnGrid(3, 3, (i, j) -> 1).ifPresent(N::println);
+        II.maxGridPathSumInt(1, 1, (i, j) -> 1).ifPresent(N::println);
+        II.maxGridPathSumInt(1, 2, (i, j) -> 1).ifPresent(N::println);
+        II.maxGridPathSumInt(2, 1, (i, j) -> 1).ifPresent(N::println);
+        II.maxGridPathSumInt(2, 2, (i, j) -> 1).ifPresent(N::println);
+        II.maxGridPathSumInt(3, 2, (i, j) -> 1).ifPresent(N::println);
+        II.maxGridPathSumInt(3, 3, (i, j) -> 1).ifPresent(N::println);
+
+        final int[][] a = { { 1, 1, 2 }, { 1, 2, 1 }, { 5, 1, 1 } };
+        II.maxGridPathSumInt(3, 3, (i, j) -> a[i][j]).ifPresent(N::println);
+        II.minGridPathSumInt(3, 3, (i, j) -> a[i][j], (i, j) -> a[i][j] == 5).ifPresent(N::println);
     }
 
     @Test

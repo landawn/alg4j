@@ -673,8 +673,8 @@ public final class II {
         return indicesOfLongestPalindromeSubstrings(str).map(p -> str.subSequence(p._1, p._2).toString());
     }
 
-    public static OptionalInt uniquePathsOnGrid(final int height, final int width) {
-        return uniquePathsOnGrid(height, width, IntBiPredicate.ALWAYS_FALSE);
+    public static OptionalInt uniqueGridPaths(final int height, final int width) {
+        return uniqueGridPaths(height, width, IntBiPredicate.ALWAYS_FALSE);
     }
 
     /**
@@ -683,7 +683,7 @@ public final class II {
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalInt uniquePathsOnGrid(final int height, final int width, final IntBiPredicate isObstacle) {
+    public static OptionalInt uniqueGridPaths(final int height, final int width, final IntBiPredicate isObstacle) {
         N.requireNonNull(isObstacle);
 
         if (height == 0 || width == 0) {
@@ -720,8 +720,8 @@ public final class II {
      * @param toInt the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalInt minPathSumIntOnGrid(final int height, final int width, final IntBiFunction<Integer> toInt) {
-        return minPathSumIntOnGrid(height, width, toInt, IntBiPredicate.ALWAYS_FALSE);
+    public static OptionalInt minGridPathSumInt(final int height, final int width, final IntBiFunction<Integer> toInt) {
+        return minGridPathSumInt(height, width, toInt, IntBiPredicate.ALWAYS_FALSE);
     }
 
     /**
@@ -732,7 +732,7 @@ public final class II {
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalInt minPathSumIntOnGrid(final int height, final int width, final IntBiFunction<Integer> toInt, final IntBiPredicate isObstacle) {
+    public static OptionalInt minGridPathSumInt(final int height, final int width, final IntBiFunction<Integer> toInt, final IntBiPredicate isObstacle) {
         N.requireNonNull(toInt);
         N.requireNonNull(isObstacle);
 
@@ -776,8 +776,8 @@ public final class II {
      * @param toLong the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalLong minPathSumLongOnGrid(final int height, final int width, final IntBiFunction<Long> toLong) {
-        return minPathSumLongOnGrid(height, width, toLong, IntBiPredicate.ALWAYS_FALSE);
+    public static OptionalLong minGridPathSumLong(final int height, final int width, final IntBiFunction<Long> toLong) {
+        return minGridPathSumLong(height, width, toLong, IntBiPredicate.ALWAYS_FALSE);
     }
 
     /**
@@ -788,7 +788,7 @@ public final class II {
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalLong minPathSumLongOnGrid(final int height, final int width, final IntBiFunction<Long> toLong, final IntBiPredicate isObstacle) {
+    public static OptionalLong minGridPathSumLong(final int height, final int width, final IntBiFunction<Long> toLong, final IntBiPredicate isObstacle) {
         N.requireNonNull(toLong);
         N.requireNonNull(isObstacle);
 
@@ -832,8 +832,8 @@ public final class II {
      * @param toDouble the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalDouble minPathSumDoubleOnGrid(final int height, final int width, final IntBiFunction<Double> toDouble) {
-        return minPathSumDoubleOnGrid(height, width, toDouble, IntBiPredicate.ALWAYS_FALSE);
+    public static OptionalDouble minGridPathSumDouble(final int height, final int width, final IntBiFunction<Double> toDouble) {
+        return minGridPathSumDouble(height, width, toDouble, IntBiPredicate.ALWAYS_FALSE);
     }
 
     /**
@@ -844,7 +844,7 @@ public final class II {
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalDouble minPathSumDoubleOnGrid(final int height, final int width, final IntBiFunction<Double> toDouble,
+    public static OptionalDouble minGridPathSumDouble(final int height, final int width, final IntBiFunction<Double> toDouble,
             final IntBiPredicate isObstacle) {
         N.requireNonNull(toDouble);
         N.requireNonNull(isObstacle);
@@ -889,8 +889,8 @@ public final class II {
      * @param toInt the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalInt maxPathSumIntOnGrid(final int height, final int width, final IntBiFunction<Integer> toInt) {
-        return maxPathSumIntOnGrid(height, width, toInt, IntBiPredicate.ALWAYS_FALSE);
+    public static OptionalInt maxGridPathSumInt(final int height, final int width, final IntBiFunction<Integer> toInt) {
+        return maxGridPathSumInt(height, width, toInt, IntBiPredicate.ALWAYS_FALSE);
     }
 
     /**
@@ -901,7 +901,7 @@ public final class II {
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalInt maxPathSumIntOnGrid(final int height, final int width, final IntBiFunction<Integer> toInt, final IntBiPredicate isObstacle) {
+    public static OptionalInt maxGridPathSumInt(final int height, final int width, final IntBiFunction<Integer> toInt, final IntBiPredicate isObstacle) {
         N.requireNonNull(toInt);
         N.requireNonNull(isObstacle);
 
@@ -945,8 +945,8 @@ public final class II {
      * @param toLong the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalLong maxPathSumLongOnGrid(final int height, final int width, final IntBiFunction<Long> toLong) {
-        return maxPathSumLongOnGrid(height, width, toLong, IntBiPredicate.ALWAYS_FALSE);
+    public static OptionalLong maxGridPathSumLong(final int height, final int width, final IntBiFunction<Long> toLong) {
+        return maxGridPathSumLong(height, width, toLong, IntBiPredicate.ALWAYS_FALSE);
     }
 
     /**
@@ -957,7 +957,7 @@ public final class II {
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalLong maxPathSumLongOnGrid(final int height, final int width, final IntBiFunction<Long> toLong, final IntBiPredicate isObstacle) {
+    public static OptionalLong maxGridPathSumLong(final int height, final int width, final IntBiFunction<Long> toLong, final IntBiPredicate isObstacle) {
         N.requireNonNull(toLong);
         N.requireNonNull(isObstacle);
 
@@ -1001,8 +1001,8 @@ public final class II {
      * @param toDouble the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalDouble maxPathSumDoubleOnGrid(final int height, final int width, final IntBiFunction<Double> toDouble) {
-        return maxPathSumDoubleOnGrid(height, width, toDouble, IntBiPredicate.ALWAYS_FALSE);
+    public static OptionalDouble maxGridPathSumDouble(final int height, final int width, final IntBiFunction<Double> toDouble) {
+        return maxGridPathSumDouble(height, width, toDouble, IntBiPredicate.ALWAYS_FALSE);
     }
 
     /**
@@ -1013,7 +1013,7 @@ public final class II {
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
      */
-    public static OptionalDouble maxPathSumDoubleOnGrid(final int height, final int width, final IntBiFunction<Double> toDouble,
+    public static OptionalDouble maxGridPathSumDouble(final int height, final int width, final IntBiFunction<Double> toDouble,
             final IntBiPredicate isObstacle) {
         N.requireNonNull(toDouble);
         N.requireNonNull(isObstacle);
