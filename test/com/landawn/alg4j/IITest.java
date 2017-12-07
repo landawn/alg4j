@@ -128,6 +128,7 @@ public class IITest {
         final int[][] a = { { 1, 1, 2 }, { 1, 2, 1 }, { 5, 1, 1 } };
         II.minGridPathSumInt(3, 3, (i, j) -> a[i][j]).ifPresent(N::println);
         II.minGridPathSumInt(3, 3, (i, j) -> a[i][j], (i, j) -> a[i][j] == 2).ifPresent(N::println);
+        II.minGridPathSumInt(3, 3, (i, j) -> a[i][j], (i, j) -> a[i][j] == 2 || a[i][j] == 5).ifPresentOrElse(N::println, () -> N.println("NONE"));
     }
 
     @Test
@@ -142,6 +143,7 @@ public class IITest {
         final int[][] a = { { 1, 1, 2 }, { 1, 2, 1 }, { 5, 1, 1 } };
         II.maxGridPathSumInt(3, 3, (i, j) -> a[i][j]).ifPresent(N::println);
         II.minGridPathSumInt(3, 3, (i, j) -> a[i][j], (i, j) -> a[i][j] == 5).ifPresent(N::println);
+        II.minGridPathSumInt(3, 3, (i, j) -> a[i][j], (i, j) -> a[i][j] == 5 || a[i][j] == 2).ifPresentOrElse(N::println, () -> N.println("NONE"));
     }
 
     @Test

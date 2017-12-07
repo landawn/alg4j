@@ -33,9 +33,8 @@ public class MutableBinaryTreeNode<T> extends MutableNode<T> {
         return left;
     }
 
-    public MutableNode<T> setLeft(final MutableBinaryTreeNode<T> newLeft) {
+    public void setLeft(final MutableBinaryTreeNode<T> newLeft) {
         this.left = newLeft;
-        return this;
     }
 
     public <E extends Exception> boolean setLeftIf(final MutableBinaryTreeNode<T> newLeft, final Try.Predicate<? super MutableBinaryTreeNode<T>, E> predicate)
@@ -63,9 +62,8 @@ public class MutableBinaryTreeNode<T> extends MutableNode<T> {
         return left;
     }
 
-    public MutableNode<T> setRight(final MutableBinaryTreeNode<T> newRight) {
+    public void setRight(final MutableBinaryTreeNode<T> newRight) {
         this.right = newRight;
-        return this;
     }
 
     public <E extends Exception> boolean setRightIf(final MutableBinaryTreeNode<T> newRight, final Try.Predicate<? super MutableBinaryTreeNode<T>, E> predicate)

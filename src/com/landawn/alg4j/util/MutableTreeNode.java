@@ -29,9 +29,8 @@ public class MutableTreeNode<T> extends MutableNode<T> {
         return children;
     }
 
-    public MutableNode<T> setChildren(final List<MutableTreeNode<T>> newChildren) {
+    public void setChildren(final List<MutableTreeNode<T>> newChildren) {
         this.children = newChildren;
-        return this;
     }
 
     public <E extends Exception> boolean setChildrenIf(final List<MutableTreeNode<T>> newChildren, final Try.Predicate<? super MutableTreeNode<T>, E> predicate)
