@@ -673,14 +673,25 @@ public final class II {
         return indicesOfLongestPalindromeSubstrings(str).map(p -> str.subSequence(p._1, p._2).toString());
     }
 
+    /**
+     * 
+     * {@code Path is defined as the movements from the most left-top cell to the most right-bottom cell on a grid. And each step only can move to the right or down cell}.
+     * 
+     * @param height
+     * @param width
+     * @return
+     */
     public static OptionalInt uniqueGridPaths(final int height, final int width) {
         return uniqueGridPaths(height, width, IntBiPredicate.ALWAYS_FALSE);
     }
 
     /**
+     * 
+     * {@code Path is defined as the movements from the most left-top cell to the most right-bottom cell on a grid. And each step only can move to the right or down cell}.
+     * 
      * @param height
      * @param width
-     * @param isObstacle the first parameter is the row index, and the second number is column index.
+     * @param isObstacle the first parameter is the row index, and the second number is column index. if it returns {@code true}, then no path can pass through the cell.
      * @return
      */
     public static OptionalInt uniqueGridPaths(final int height, final int width, final IntBiPredicate isObstacle) {
@@ -719,6 +730,7 @@ public final class II {
      * @param width
      * @param toInt the first parameter is the row index, and the second number is column index.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static OptionalInt minGridPathSumInt(final int height, final int width, final IntBiFunction<Integer> toInt) {
         return minGridPathSumInt(height, width, toInt, IntBiPredicate.ALWAYS_FALSE);
@@ -731,6 +743,7 @@ public final class II {
      * @param toInt the first parameter is the row index, and the second number is column index.
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static OptionalInt minGridPathSumInt(final int height, final int width, final IntBiFunction<Integer> toInt, final IntBiPredicate isObstacle) {
         N.requireNonNull(toInt);
@@ -775,6 +788,7 @@ public final class II {
      * @param width
      * @param toLong the first parameter is the row index, and the second number is column index.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static OptionalLong minGridPathSumLong(final int height, final int width, final IntBiFunction<Long> toLong) {
         return minGridPathSumLong(height, width, toLong, IntBiPredicate.ALWAYS_FALSE);
@@ -787,6 +801,7 @@ public final class II {
      * @param toLong the first parameter is the row index, and the second number is column index.
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static OptionalLong minGridPathSumLong(final int height, final int width, final IntBiFunction<Long> toLong, final IntBiPredicate isObstacle) {
         N.requireNonNull(toLong);
@@ -831,6 +846,7 @@ public final class II {
      * @param width
      * @param toDouble the first parameter is the row index, and the second number is column index.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static OptionalDouble minGridPathSumDouble(final int height, final int width, final IntBiFunction<Double> toDouble) {
         return minGridPathSumDouble(height, width, toDouble, IntBiPredicate.ALWAYS_FALSE);
@@ -843,6 +859,7 @@ public final class II {
      * @param toDouble the first parameter is the row index, and the second number is column index.
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static OptionalDouble minGridPathSumDouble(final int height, final int width, final IntBiFunction<Double> toDouble,
             final IntBiPredicate isObstacle) {
@@ -888,6 +905,7 @@ public final class II {
      * @param width
      * @param toInt the first parameter is the row index, and the second number is column index.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static OptionalInt maxGridPathSumInt(final int height, final int width, final IntBiFunction<Integer> toInt) {
         return maxGridPathSumInt(height, width, toInt, IntBiPredicate.ALWAYS_FALSE);
@@ -944,6 +962,7 @@ public final class II {
      * @param width
      * @param toLong the first parameter is the row index, and the second number is column index.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static OptionalLong maxGridPathSumLong(final int height, final int width, final IntBiFunction<Long> toLong) {
         return maxGridPathSumLong(height, width, toLong, IntBiPredicate.ALWAYS_FALSE);
@@ -956,6 +975,7 @@ public final class II {
      * @param toLong the first parameter is the row index, and the second number is column index.
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static OptionalLong maxGridPathSumLong(final int height, final int width, final IntBiFunction<Long> toLong, final IntBiPredicate isObstacle) {
         N.requireNonNull(toLong);
@@ -1000,6 +1020,7 @@ public final class II {
      * @param width
      * @param toDouble the first parameter is the row index, and the second number is column index.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static OptionalDouble maxGridPathSumDouble(final int height, final int width, final IntBiFunction<Double> toDouble) {
         return maxGridPathSumDouble(height, width, toDouble, IntBiPredicate.ALWAYS_FALSE);
@@ -1012,6 +1033,7 @@ public final class II {
      * @param toDouble the first parameter is the row index, and the second number is column index.
      * @param isObstacle the first parameter is the row index, and the second number is column index.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static OptionalDouble maxGridPathSumDouble(final int height, final int width, final IntBiFunction<Double> toDouble,
             final IntBiPredicate isObstacle) {
@@ -1082,6 +1104,7 @@ public final class II {
      * @param ternaryOperators it's better defined as {@code constant(static final)}.
      * @param operation it's better defined as {@code constant(static final)}.
      * @return
+     * @see #uniqueGridPaths(int, int, IntBiPredicate)
      */
     public static <T, R> Nullable<R> evalRPN(final List<T> tokens, final Set<?> unaryOperators, final Set<?> binaryOperators, final Set<?> ternaryOperators,
             final QuadFunction<? super R, ? super R, ? super R, ? super T, R> operation) {
