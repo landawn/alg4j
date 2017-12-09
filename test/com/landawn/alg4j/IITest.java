@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.landawn.abacus.util.Array;
 import com.landawn.abacus.util.Fn;
+import com.landawn.abacus.util.ListMultimap;
 import com.landawn.abacus.util.N;
 import com.landawn.abacus.util.Profiler;
 import com.landawn.abacus.util.function.QuadFunction;
@@ -129,6 +130,8 @@ public class IITest {
         II.minGridPathSumInt(3, 3, (i, j) -> a[i][j]).ifPresent(N::println);
         II.minGridPathSumInt(3, 3, (i, j) -> a[i][j], (i, j) -> a[i][j] == 2).ifPresent(N::println);
         II.minGridPathSumInt(3, 3, (i, j) -> a[i][j], (i, j) -> a[i][j] == 2 || a[i][j] == 5).ifPresentOrElse(N::println, () -> N.println("NONE"));
+
+        ListMultimap<String, Number> m = ListMultimap.from(N.asMap("a", 1, "b", 2d));
     }
 
     @Test

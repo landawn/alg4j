@@ -595,6 +595,42 @@ public final class II {
         return indicesOfBracketedSubstrings(str, prefix, postfix).map(p -> str.subSequence(p._1, p._2).toString());
     }
 
+    /**
+     * Two strings are isomorphic if the characters in one can be replaced to get anther.
+     * 
+     * @param a
+     * @param b
+     * @return
+     */
+    public static boolean areIsomorphic(final CharSequence a, final CharSequence b) {
+        if (a == null || b == null) {
+            return a == b;
+        } else if (a.equals(b)) {
+            return true;
+        } else if (a.length() != b.length()) {
+            return false;
+        }
+
+        final Map<Character, Character> map = new HashMap<>();
+
+        for (int i = 0, len = a.length(); i < len; i++) {
+            char ch1 = a.charAt(i);
+            char ch2 = b.charAt(i);
+
+            if (map.containsKey(ch1)) {
+                if (map.get(ch1) != ch2) {
+                    return false;
+                }
+            } else if (map.containsValue(ch2)) {
+                return false;
+            } else {
+                map.put(ch1, ch2);
+            }
+        }
+
+        return true;
+    }
+
     public static boolean isPalindrome(final CharSequence str) {
         if (N.isNullOrEmpty(str)) {
             return true;
