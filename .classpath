@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/abacus-util-1.1.4.jar" sourcepath="lib/abacus-util-1.1.4-sources.jar"/>
+	<classpathentry kind="lib" path="lib/abacus-util-1.1.5.jar" sourcepath="lib/abacus-util-1.1.5-sources.jar"/>
 	<classpathentry kind="lib" path="lib/guava-23.3-jre.jar" sourcepath="lib/guava-23.3-jre-sources.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
