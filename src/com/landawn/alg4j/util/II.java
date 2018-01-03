@@ -11,7 +11,7 @@ import java.util.Set;
 
 import com.landawn.abacus.util.Comparators;
 import com.landawn.abacus.util.IntPair;
-import com.landawn.abacus.util.Math2;
+import com.landawn.abacus.util.Maths;
 import com.landawn.abacus.util.MutableDouble;
 import com.landawn.abacus.util.MutableInt;
 import com.landawn.abacus.util.MutableLong;
@@ -44,7 +44,7 @@ public final class II {
     }
 
     public static boolean isPrime(final long n) {
-        return Math2.isPrime(n);
+        return Maths.isPrime(n);
     }
 
     /**
