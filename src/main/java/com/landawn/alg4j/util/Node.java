@@ -1,7 +1,7 @@
 package com.landawn.alg4j.util;
 
 import com.landawn.abacus.util.N;
-import com.landawn.abacus.util.Try;
+import com.landawn.abacus.util.Throwables;
 
 public class Node<T> {
     private T value;
@@ -26,7 +26,7 @@ public class Node<T> {
         this.value = newValue;
     }
 
-    public <E extends Exception> boolean setValueIf(final T newValue, final Try.Predicate<? super Node<T>, E> predicate) throws E {
+    public <E extends Exception> boolean setValueIf(final T newValue, final Throwables.Predicate<? super Node<T>, E> predicate) throws E {
         if (predicate.test(this)) {
             this.value = newValue;
             return true;

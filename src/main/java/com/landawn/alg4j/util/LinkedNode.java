@@ -1,7 +1,7 @@
 package com.landawn.alg4j.util;
 
 import com.landawn.abacus.util.N;
-import com.landawn.abacus.util.Try;
+import com.landawn.abacus.util.Throwables;
 
 public class LinkedNode<T> extends Node<T> {
     private LinkedNode<T> next;
@@ -22,7 +22,7 @@ public class LinkedNode<T> extends Node<T> {
         this.next = newNext;
     }
 
-    public <E extends Exception> boolean setNextIf(final LinkedNode<T> newNext, final Try.Predicate<? super LinkedNode<T>, E> predicate) throws E {
+    public <E extends Exception> boolean setNextIf(final LinkedNode<T> newNext, final Throwables.Predicate<? super LinkedNode<T>, E> predicate) throws E {
         if (predicate.test(this)) {
             this.next = newNext;
             return true;

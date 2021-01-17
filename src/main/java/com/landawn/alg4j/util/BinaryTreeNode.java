@@ -1,7 +1,7 @@
 package com.landawn.alg4j.util;
 
 import com.landawn.abacus.util.N;
-import com.landawn.abacus.util.Try;
+import com.landawn.abacus.util.Throwables;
 
 public class BinaryTreeNode<T> extends Node<T> {
     private BinaryTreeNode<T> left;
@@ -37,7 +37,7 @@ public class BinaryTreeNode<T> extends Node<T> {
         this.left = newLeft;
     }
 
-    public <E extends Exception> boolean setLeftIf(final BinaryTreeNode<T> newLeft, final Try.Predicate<? super BinaryTreeNode<T>, E> predicate)
+    public <E extends Exception> boolean setLeftIf(final BinaryTreeNode<T> newLeft, final Throwables.Predicate<? super BinaryTreeNode<T>, E> predicate)
             throws E {
         if (predicate.test(this)) {
             this.left = newLeft;
@@ -66,7 +66,7 @@ public class BinaryTreeNode<T> extends Node<T> {
         this.right = newRight;
     }
 
-    public <E extends Exception> boolean setRightIf(final BinaryTreeNode<T> newRight, final Try.Predicate<? super BinaryTreeNode<T>, E> predicate)
+    public <E extends Exception> boolean setRightIf(final BinaryTreeNode<T> newRight, final Throwables.Predicate<? super BinaryTreeNode<T>, E> predicate)
             throws E {
         if (predicate.test(this)) {
             this.right = newRight;

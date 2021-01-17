@@ -3,7 +3,7 @@ package com.landawn.alg4j.util;
 import java.util.List;
 
 import com.landawn.abacus.util.N;
-import com.landawn.abacus.util.Try;
+import com.landawn.abacus.util.Throwables;
 
 public class TreeNode<T> extends Node<T> {
     private List<TreeNode<T>> children;
@@ -33,7 +33,7 @@ public class TreeNode<T> extends Node<T> {
         this.children = newChildren;
     }
 
-    public <E extends Exception> boolean setChildrenIf(final List<TreeNode<T>> newChildren, final Try.Predicate<? super TreeNode<T>, E> predicate)
+    public <E extends Exception> boolean setChildrenIf(final List<TreeNode<T>> newChildren, final Throwables.Predicate<? super TreeNode<T>, E> predicate)
             throws E {
         if (predicate.test(this)) {
             this.children = newChildren;
