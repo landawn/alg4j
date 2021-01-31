@@ -5,6 +5,7 @@
 	<artifactId>alg4j</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>alg4j</name>
+    <url>https://github.com/landawn/alg4j</url>
 	<description>Algorithms for Java</description>
 
 	<properties>
