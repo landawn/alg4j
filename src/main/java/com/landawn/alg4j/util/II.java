@@ -646,6 +646,7 @@ public final class II {
         return true;
     }
 
+    @SuppressWarnings("null")
     public static boolean isPalindrome(final CharSequence str, final int inclusiveFromIndex, final int exclusiveToIndex) {
         N.checkFromToIndex(inclusiveFromIndex, exclusiveToIndex, str == null ? 0 : str.length());
 
