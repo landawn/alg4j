@@ -27,7 +27,7 @@ public class ImmutableTreeNode<T> extends ImmutableNode<T> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) {
+        if (this == obj) {
             return true;
         }
 

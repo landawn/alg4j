@@ -98,7 +98,7 @@ public class DoubleLinkedNode<T> extends Node<T> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) {
+        if (this == obj) {
             return true;
         }
 
