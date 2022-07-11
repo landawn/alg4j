@@ -4,10 +4,10 @@ import java.util.ArrayDeque;
 import java.util.BitSet;
 import java.util.Deque;
 import java.util.NoSuchElementException;
+import java.util.function.Function;
 
 import com.landawn.abacus.util.N;
 import com.landawn.abacus.util.ObjIterator;
-import com.landawn.abacus.util.function.Function;
 import com.landawn.abacus.util.stream.Stream;
 
 public class BinaryTreeTraverser<T> {

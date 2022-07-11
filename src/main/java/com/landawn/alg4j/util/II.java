@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.LongPredicate;
 
 import com.landawn.abacus.util.Comparators;
 import com.landawn.abacus.util.IntPair;
@@ -25,7 +26,6 @@ import com.landawn.abacus.util.u.OptionalInt;
 import com.landawn.abacus.util.u.OptionalLong;
 import com.landawn.abacus.util.function.IntBiFunction;
 import com.landawn.abacus.util.function.IntBiPredicate;
-import com.landawn.abacus.util.function.LongPredicate;
 import com.landawn.abacus.util.function.QuadFunction;
 import com.landawn.abacus.util.stream.IntStream;
 import com.landawn.abacus.util.stream.LongStream;
@@ -50,7 +50,7 @@ public final class II {
 
     /**
      * Returns the primes less than the specified long {@code to}.
-     * 
+     *
      * @param exclusiveTo
      * @return
      */
@@ -60,7 +60,7 @@ public final class II {
 
     /**
      * Returns the primes in the specified range: {@code [inclusiveFrom, exclusiveTo)}.
-     * 
+     *
      * @param inclusiveFrom
      * @param exclusiveTo
      * @return
@@ -74,9 +74,9 @@ public final class II {
     }
 
     /**
-     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged, 
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged,
      * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two arrays' length is even, or empty is the sum is odd.
-     * 
+     *
      * @param sortedA
      * @param sortedB
      * @return
@@ -119,9 +119,9 @@ public final class II {
     }
 
     /**
-     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged, 
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged,
      * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two arrays' length is even, or empty is the sum is odd.
-     * 
+     *
      * @param sortedA
      * @param sortedB
      * @return
@@ -164,9 +164,9 @@ public final class II {
     }
 
     /**
-     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged, 
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged,
      * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two arrays' length is even, or empty is the sum is odd.
-     * 
+     *
      * @param sortedA
      * @param sortedB
      * @return
@@ -213,9 +213,9 @@ public final class II {
     }
 
     /**
-     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged, 
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged,
      * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two arrays' length is even, or empty is the sum is odd.
-     * 
+     *
      * @param sortedA
      * @param sortedB
      * @return
@@ -225,9 +225,9 @@ public final class II {
     }
 
     /**
-     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged, 
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted arrays are merged,
      * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two arrays' length is even, or empty is the sum is odd.
-     * 
+     *
      * @param sortedA has to be already sorted with the specified {@code comparator}.
      * @param sortedB has to be already sorted with the specified {@code comparator}.
      * @param comparator
@@ -273,10 +273,10 @@ public final class II {
     }
 
     /**
-     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted lists are merged, 
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted lists are merged,
      * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two lists' length is even, or empty is the sum is odd.
-     * 
-     * 
+     *
+     *
      * @param sortedA
      * @param sortedB
      * @return
@@ -286,9 +286,9 @@ public final class II {
     }
 
     /**
-     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted lists are merged, 
+     * Returns a {@code Pair} with the left value is the element at position {@code (sortedA.length + sortedB.length - 1) / 2} if two specified sorted lists are merged,
      * and the right value is the element at position {@code (sortedA.length + sortedB.length) / 2} if the sum of two lists' length is even, or empty is the sum is odd.
-     * 
+     *
      * @param sortedA has to be already sorted with the specified {@code comparator}.
      * @param sortedB has to be already sorted with the specified {@code comparator}.
      * @param comparator
@@ -334,7 +334,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param s
      * @return
      */
@@ -367,7 +367,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param str
      * @return an empty {@code Stream} if the specified {@code CharSequence} is {@code null} or empty.
      */
@@ -416,7 +416,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param str
      * @return an empty {@code Stream} if the specified {@code CharSequence} is {@code null} or empty.
      */
@@ -426,7 +426,7 @@ public final class II {
 
     /**
      * <code>indicesOfBracketedSubstrings("3[a2[c]]2[a]", '[', ']') => [[2, 7], [10, 11]]</code>
-     * 
+     *
      * @param str
      * @param prefix
      * @param postfix
@@ -480,7 +480,7 @@ public final class II {
 
     /**
      * <code>indicesOfBracketedSubstrings("3[a2[c]]2[a]", "[", "]") => [[2, 7], [10, 11]]</code>
-     * 
+     *
      * @param str
      * @param prefix
      * @param postfix
@@ -495,9 +495,9 @@ public final class II {
     }
 
     //    /**
-    //     * 
+    //     *
     //     * <code>findAllIndices("3[a2[c]]2[a]", '[', ']') = [[2, 7], [10, 11]]</code>
-    //     * 
+    //     *
     //     * @param str
     //     * @param fromIndex
     //     * @param toIndex
@@ -571,9 +571,9 @@ public final class II {
     //    }
 
     /**
-     * 
+     *
      * <code>bracketedSubstrings("3[a2[c]]2[a]", '[', ']') => ["a2[c]", "a"]</code>
-     * 
+     *
      * @param str
      * @param prefix
      * @param postfix
@@ -584,9 +584,9 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * <code>bracketedSubstrings("3[a2[c]]2[a]", "[", "]") => ["a2[c]", "a"]</code>
-     * 
+     *
      * @param str
      * @param prefix
      * @param postfix
@@ -598,7 +598,7 @@ public final class II {
 
     /**
      * Two strings are isomorphic if the characters in one can be replaced to get anther.
-     * 
+     *
      * @param a
      * @param b
      * @return
@@ -712,9 +712,9 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * {@code Path is defined as the movements from the most left-top cell to the most right-bottom cell on a grid. And each step only can move to the right or down cell}.
-     * 
+     *
      * @param height
      * @param width
      * @return
@@ -724,9 +724,9 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * {@code Path is defined as the movements from the most left-top cell to the most right-bottom cell on a grid. And each step only can move to the right or down cell}.
-     * 
+     *
      * @param height
      * @param width
      * @param isObstacle the first parameter is the row index, and the second number is column index. if it returns {@code true}, then no path can pass through the cell.
@@ -763,7 +763,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toInt the first parameter is the row index, and the second number is column index.
@@ -775,7 +775,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toInt the first parameter is the row index, and the second number is column index.
@@ -821,7 +821,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toLong the first parameter is the row index, and the second number is column index.
@@ -833,7 +833,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toLong the first parameter is the row index, and the second number is column index.
@@ -879,7 +879,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toDouble the first parameter is the row index, and the second number is column index.
@@ -891,7 +891,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toDouble the first parameter is the row index, and the second number is column index.
@@ -938,7 +938,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toInt the first parameter is the row index, and the second number is column index.
@@ -950,7 +950,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toInt the first parameter is the row index, and the second number is column index.
@@ -995,7 +995,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toLong the first parameter is the row index, and the second number is column index.
@@ -1007,7 +1007,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toLong the first parameter is the row index, and the second number is column index.
@@ -1053,7 +1053,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toDouble the first parameter is the row index, and the second number is column index.
@@ -1065,7 +1065,7 @@ public final class II {
     }
 
     /**
-     * 
+     *
      * @param height
      * @param width
      * @param toDouble the first parameter is the row index, and the second number is column index.
@@ -1113,7 +1113,7 @@ public final class II {
 
     /**
      * Evaluate the value of an arithmetic expression in Reverse Polish Notation
-     * 
+     *
      * <pre>
      * <code>Set&lt;String&gt; binaryOperators = N.asSet("+", "-", "*", "/");
      * final QuadFunction<Integer, Integer, Integer, String, Integer> operation = (a, b, c, t) -> {
@@ -1130,12 +1130,12 @@ public final class II {
      *             return Integer.valueOf(t);
      *     }
      * };
-     * 
+     *
      * II.evalRPN(N.asList("2", "1", "+", "3", "*"), null, binaryOperators, null, operation).ifPresent(Fn.println()); // -> 9
-     * II.evalRPN(N.asList("4", "13", "5", "/", "+"), null, binaryOperators, null, operation).ifPresent(Fn.println()); // -> 6    
+     * II.evalRPN(N.asList("4", "13", "5", "/", "+"), null, binaryOperators, null, operation).ifPresent(Fn.println()); // -> 6
      * </code>
      * </pre>
-     * 
+     *
      * @param tokens
      * @param unaryOperators it's better defined as {@code constant(static final)}.
      * @param binaryOperators it's better defined as {@code constant(static final)}.

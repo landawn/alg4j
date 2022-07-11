@@ -1,7 +1,8 @@
 package com.landawn.alg4j.util;
 
+import java.util.function.Function;
+
 import com.google.common.graph.SuccessorsFunction;
-import com.landawn.abacus.util.function.Function;
 import com.landawn.abacus.util.stream.Stream;
 
 public final class Traverser<T> {
