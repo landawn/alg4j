@@ -13,7 +13,7 @@ import com.landawn.abacus.util.Array;
 import com.landawn.abacus.util.Fn;
 import com.landawn.abacus.util.N;
 import com.landawn.abacus.util.Profiler;
-import com.landawn.abacus.util.StringUtil;
+import com.landawn.abacus.util.Strings;
 import com.landawn.abacus.util.function.QuadFunction;
 import com.landawn.alg4j.util.II;
 
@@ -48,8 +48,8 @@ public class IITest {
         N.println(N.repeat('=', 80));
         II.longestSubstringsWithoutRepeatingCharacters("abcabcad").forEach(Fn.println());
 
-        N.println(StringUtil.findAllIndicesBetween("adb[12[3]]", "[", "]"));
-        N.println(StringUtil.findAllSubstringsBetween("adb[12[3]", "[", "]"));
+        N.println(Strings.findAllIndicesBetween("adb[12[3]]", "[", "]"));
+        N.println(Strings.findAllSubstringsBetween("adb[12[3]", "[", "]"));
     }
 
     @Test

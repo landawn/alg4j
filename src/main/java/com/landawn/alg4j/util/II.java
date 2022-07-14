@@ -18,7 +18,7 @@ import com.landawn.abacus.util.MutableLong;
 import com.landawn.abacus.util.N;
 import com.landawn.abacus.util.Numbers;
 import com.landawn.abacus.util.Pair;
-import com.landawn.abacus.util.StringUtil;
+import com.landawn.abacus.util.Strings;
 import com.landawn.abacus.util.u.Nullable;
 import com.landawn.abacus.util.u.Optional;
 import com.landawn.abacus.util.u.OptionalDouble;
@@ -437,7 +437,7 @@ public final class II {
             return Stream.empty();
         }
 
-        return Stream.of(StringUtil.findAllIndicesBetween(str.toString(), 0, str.length(), prefix, postfix));
+        return Stream.of(Strings.findAllIndicesBetween(str.toString(), 0, str.length(), prefix, postfix));
     }
 
     //    @SuppressWarnings("deprecation")
@@ -491,7 +491,7 @@ public final class II {
             return Stream.empty();
         }
 
-        return Stream.of(StringUtil.findAllIndicesBetween(str.toString(), 0, str.length(), prefix, postfix));
+        return Stream.of(Strings.findAllIndicesBetween(str.toString(), 0, str.length(), prefix, postfix));
     }
 
     //    /**
