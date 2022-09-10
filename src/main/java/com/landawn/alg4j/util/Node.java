@@ -51,18 +51,13 @@ public class Node<T> {
         return N.hashCode(value);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
 
-        if (obj instanceof Node) {
-            return N.equals(((Node<T>) obj).value, value);
-        }
-
-        return false;
+        return obj != null && obj.getClass().equals(Node.class) && N.equals(((Node<T>) obj).value, value);
     }
 
     @Override
