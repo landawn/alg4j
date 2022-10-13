@@ -8,6 +8,7 @@ import com.landawn.abacus.util.N;
 public class ImmutableTreeNode<T> extends ImmutableNode<T> {
     private final List<ImmutableTreeNode<T>> children;
 
+    @SuppressWarnings("deprecation")
     public ImmutableTreeNode(final T value, final List<ImmutableTreeNode<T>> children) {
         super(value);
         this.children = ImmutableList.of(children);
