@@ -11,7 +11,7 @@ public class ImmutableTreeNode<T> extends ImmutableNode<T> {
     @SuppressWarnings("deprecation")
     public ImmutableTreeNode(final T value, final List<ImmutableTreeNode<T>> children) {
         super(value);
-        this.children = ImmutableList.of(children);
+        this.children = ImmutableList.wrap(children);
     }
 
     public List<ImmutableTreeNode<T>> children() {
