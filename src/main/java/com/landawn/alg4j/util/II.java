@@ -82,11 +82,11 @@ public final class II {
      * @return
      */
     public static Pair<Integer, OptionalInt> medianOfTwoSortedArrays(final int[] sortedA, final int[] sortedB) {
-        N.checkArgument(N.notNullOrEmpty(sortedA) || N.notNullOrEmpty(sortedB), "The two sorted arrays can't both be null or empty");
-        if (N.isNullOrEmpty(sortedA)) {
+        N.checkArgument(N.notEmpty(sortedA) || N.notEmpty(sortedB), "The two sorted arrays can't both be null or empty");
+        if (N.isEmpty(sortedA)) {
             final int len = sortedB.length;
             return Pair.of(sortedB[(len / 2) - 1], len % 2 == 0 ? OptionalInt.of(sortedB[len / 2]) : OptionalInt.empty());
-        } else if (N.isNullOrEmpty(sortedB)) {
+        } else if (N.isEmpty(sortedB)) {
             final int len = sortedA.length;
             return Pair.of(sortedA[(len / 2) - 1], len % 2 == 0 ? OptionalInt.of(sortedA[len / 2]) : OptionalInt.empty());
         } else if (sortedA.length > sortedB.length) {
@@ -127,11 +127,11 @@ public final class II {
      * @return
      */
     public static Pair<Long, OptionalLong> medianOfTwoSortedArrays(final long[] sortedA, final long[] sortedB) {
-        N.checkArgument(N.notNullOrEmpty(sortedA) || N.notNullOrEmpty(sortedB), "The two sorted arrays can't both be null or empty");
-        if (N.isNullOrEmpty(sortedA)) {
+        N.checkArgument(N.notEmpty(sortedA) || N.notEmpty(sortedB), "The two sorted arrays can't both be null or empty");
+        if (N.isEmpty(sortedA)) {
             final int len = sortedB.length;
             return Pair.of(sortedB[(len / 2) - 1], len % 2 == 0 ? OptionalLong.of(sortedB[len / 2]) : OptionalLong.empty());
-        } else if (N.isNullOrEmpty(sortedB)) {
+        } else if (N.isEmpty(sortedB)) {
             final int len = sortedA.length;
             return Pair.of(sortedA[(len / 2) - 1], len % 2 == 0 ? OptionalLong.of(sortedA[len / 2]) : OptionalLong.empty());
         } else if (sortedA.length > sortedB.length) {
@@ -172,11 +172,11 @@ public final class II {
      * @return
      */
     public static Pair<Double, OptionalDouble> medianOfTwoSortedArrays(final double[] sortedA, final double[] sortedB) {
-        N.checkArgument(N.notNullOrEmpty(sortedA) || N.notNullOrEmpty(sortedB), "The two sorted arrays can't both be null or empty");
-        if (N.isNullOrEmpty(sortedA)) {
+        N.checkArgument(N.notEmpty(sortedA) || N.notEmpty(sortedB), "The two sorted arrays can't both be null or empty");
+        if (N.isEmpty(sortedA)) {
             final int len = sortedB.length;
             return Pair.of(sortedB[(len / 2) - 1], len % 2 == 0 ? OptionalDouble.of(sortedB[len / 2]) : OptionalDouble.empty());
-        } else if (N.isNullOrEmpty(sortedB)) {
+        } else if (N.isEmpty(sortedB)) {
             final int len = sortedA.length;
             return Pair.of(sortedA[(len / 2) - 1], len % 2 == 0 ? OptionalDouble.of(sortedA[len / 2]) : OptionalDouble.empty());
         } else if (sortedA.length > sortedB.length) {
@@ -236,11 +236,11 @@ public final class II {
     public static <T> Pair<T, Optional<T>> medianOfTwoSortedArrays(final T[] sortedA, final T[] sortedB, final Comparator<T> comparator) {
         N.checkArgNotNull(comparator);
 
-        N.checkArgument(N.notNullOrEmpty(sortedA) || N.notNullOrEmpty(sortedB), "The two sorted arrays can't both be null or empty");
-        if (N.isNullOrEmpty(sortedA)) {
+        N.checkArgument(N.notEmpty(sortedA) || N.notEmpty(sortedB), "The two sorted arrays can't both be null or empty");
+        if (N.isEmpty(sortedA)) {
             final int len = sortedB.length;
             return Pair.of(sortedB[(len / 2) - 1], len % 2 == 0 ? Optional.of(sortedB[len / 2]) : Optional.<T> empty());
-        } else if (N.isNullOrEmpty(sortedB)) {
+        } else if (N.isEmpty(sortedB)) {
             final int len = sortedA.length;
             return Pair.of(sortedA[(len / 2) - 1], len % 2 == 0 ? Optional.of(sortedA[len / 2]) : Optional.<T> empty());
         } else if (sortedA.length > sortedB.length) {
@@ -297,11 +297,11 @@ public final class II {
     public static <T> Pair<T, Optional<T>> medianOfTwoSortedLists(final List<T> sortedA, final List<T> sortedB, final Comparator<T> comparator) {
         N.checkArgNotNull(comparator);
 
-        N.checkArgument(N.notNullOrEmpty(sortedA) || N.notNullOrEmpty(sortedB), "The two sorted arrays can't both be null or empty");
-        if (N.isNullOrEmpty(sortedA)) {
+        N.checkArgument(N.notEmpty(sortedA) || N.notEmpty(sortedB), "The two sorted arrays can't both be null or empty");
+        if (N.isEmpty(sortedA)) {
             final int len = sortedB.size();
             return Pair.of(sortedB.get((len / 2) - 1), len % 2 == 0 ? Optional.of(sortedB.get(len / 2)) : Optional.<T> empty());
-        } else if (N.isNullOrEmpty(sortedB)) {
+        } else if (N.isEmpty(sortedB)) {
             final int len = sortedA.size();
             return Pair.of(sortedA.get((len / 2) - 1), len % 2 == 0 ? Optional.of(sortedA.get(len / 2)) : Optional.<T> empty());
         } else if (sortedA.size() > sortedB.size()) {
@@ -339,7 +339,7 @@ public final class II {
      * @return
      */
     public static int lengthOfLongestSubstringWithoutRepeatingCharacters(String s) {
-        if (N.isNullOrEmpty(s)) {
+        if (Strings.isEmpty(s)) {
             return 0;
         }
 
@@ -372,7 +372,7 @@ public final class II {
      * @return an empty {@code Stream} if the specified {@code CharSequence} is {@code null} or empty.
      */
     public static Stream<IntPair> indicesOfLongestSubstringsWithoutRepeatingCharacters(final CharSequence str) {
-        if (N.isNullOrEmpty(str)) {
+        if (Strings.isEmpty(str)) {
             return Stream.empty();
         }
 
@@ -433,7 +433,7 @@ public final class II {
      * @return
      */
     public static Stream<IntPair> indicesOfBracketedSubstrings(final CharSequence str, final char prefix, final char postfix) {
-        if (N.isNullOrEmpty(str)) {
+        if (Strings.isEmpty(str)) {
             return Stream.empty();
         }
 
@@ -446,7 +446,7 @@ public final class II {
     //
     //        final List<IntPair> res = new ArrayList<>();
     //
-    //        if (N.isNullOrEmpty(str)) {
+    //        if (N.isEmpty(str)) {
     //            return res;
     //        }
     //
@@ -487,7 +487,7 @@ public final class II {
      * @return
      */
     public static Stream<IntPair> indicesOfBracketedSubstrings(final CharSequence str, final String prefix, final String postfix) {
-        if (N.isNullOrEmpty(str)) {
+        if (Strings.isEmpty(str)) {
             return Stream.empty();
         }
 
@@ -510,7 +510,7 @@ public final class II {
     //
     //        final List<IntPair> res = new ArrayList<>();
     //
-    //        if (N.isNullOrEmpty(str)) {
+    //        if (N.isEmpty(str)) {
     //            return res;
     //        }
     //
@@ -633,7 +633,7 @@ public final class II {
     }
 
     public static boolean isPalindrome(final CharSequence str) {
-        if (N.isNullOrEmpty(str)) {
+        if (Strings.isEmpty(str)) {
             return true;
         }
 
@@ -650,7 +650,7 @@ public final class II {
     public static boolean isPalindrome(final CharSequence str, final int inclusiveFromIndex, final int exclusiveToIndex) {
         N.checkFromToIndex(inclusiveFromIndex, exclusiveToIndex, str == null ? 0 : str.length());
 
-        if (N.isNullOrEmpty(str)) {
+        if (Strings.isEmpty(str)) {
             return true;
         }
 
@@ -1148,13 +1148,13 @@ public final class II {
             final QuadFunction<? super R, ? super R, ? super R, ? super T, R> operation) {
         N.checkArgNotNull(operation);
 
-        if (N.isNullOrEmpty(tokens)) {
+        if (N.isEmpty(tokens)) {
             return Nullable.empty();
         }
 
-        final boolean hasUnaryOperators = N.notNullOrEmpty(unaryOperators);
-        final boolean hasBinaryOperators = N.notNullOrEmpty(binaryOperators);
-        final boolean hasTernaryOperators = N.notNullOrEmpty(ternaryOperators);
+        final boolean hasUnaryOperators = N.notEmpty(unaryOperators);
+        final boolean hasBinaryOperators = N.notEmpty(binaryOperators);
+        final boolean hasTernaryOperators = N.notEmpty(ternaryOperators);
 
         final Deque<R> stack = new LinkedList<>();
         R a = null, b = null, c = null;

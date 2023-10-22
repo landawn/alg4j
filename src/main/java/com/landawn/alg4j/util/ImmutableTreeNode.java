@@ -43,6 +43,6 @@ public class ImmutableTreeNode<T> extends ImmutableNode<T> {
 
     //    @Override
     //    public String toString() {
-    //        return N.isNullOrEmpty(children) ? N.toString(this.value()) : N.concat(N.toString(this.value()), N.toString(children));
+    //        return N.isEmpty(children) ? N.toString(this.value()) : N.concat(N.toString(this.value()), N.toString(children));
     //    }
 }
