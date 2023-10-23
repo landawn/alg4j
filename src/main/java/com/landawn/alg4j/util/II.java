@@ -432,12 +432,12 @@ public final class II {
      * @param postfix
      * @return
      */
-    public static Stream<IntPair> indicesOfBracketedSubstrings(final CharSequence str, final char prefix, final char postfix) {
+    public static Stream<int[]> indicesOfBracketedSubstrings(final CharSequence str, final char prefix, final char postfix) {
         if (Strings.isEmpty(str)) {
             return Stream.empty();
         }
 
-        return Stream.of(Strings.findAllIndicesBetween(str.toString(), 0, str.length(), prefix, postfix));
+        return Stream.of(Strings.substringIndicesBetween(str.toString(), 0, str.length(), prefix, postfix));
     }
 
     //    @SuppressWarnings("deprecation")
@@ -486,12 +486,12 @@ public final class II {
      * @param postfix
      * @return
      */
-    public static Stream<IntPair> indicesOfBracketedSubstrings(final CharSequence str, final String prefix, final String postfix) {
+    public static Stream<int[]> indicesOfBracketedSubstrings(final CharSequence str, final String prefix, final String postfix) {
         if (Strings.isEmpty(str)) {
             return Stream.empty();
         }
 
-        return Stream.of(Strings.findAllIndicesBetween(str.toString(), 0, str.length(), prefix, postfix));
+        return Stream.of(Strings.substringIndicesBetween(str.toString(), 0, str.length(), prefix, postfix));
     }
 
     //    /**
@@ -580,7 +580,7 @@ public final class II {
      * @return
      */
     public static Stream<String> bracketedSubstrings(final CharSequence str, final char prefix, final char postfix) {
-        return indicesOfBracketedSubstrings(str, prefix, postfix).map(p -> str.subSequence(p._1, p._2).toString());
+        return indicesOfBracketedSubstrings(str, prefix, postfix).map(p -> str.subSequence(p[0], p[1]).toString());
     }
 
     /**
@@ -593,7 +593,7 @@ public final class II {
      * @return
      */
     public static Stream<String> bracketedSubstrings(final CharSequence str, final String prefix, final String postfix) {
-        return indicesOfBracketedSubstrings(str, prefix, postfix).map(p -> str.subSequence(p._1, p._2).toString());
+        return indicesOfBracketedSubstrings(str, prefix, postfix).map(p -> str.subSequence(p[0], p[1]).toString());
     }
 
     /**

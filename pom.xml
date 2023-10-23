@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.landawn</groupId>
 	<artifactId>alg4j</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.6</version>
 	<name>alg4j</name>
 	<url>https://github.com/landawn/alg4j</url>
 	<description>Algorithms for Java</description>
@@ -19,7 +20,7 @@
 		<dependency>
 			<groupId>com.landawn</groupId>
 			<artifactId>abacus-common</artifactId>
-			<version>3.9.2</version>
+			<version>3.9.3</version>
 		</dependency>
 
 		<dependency>
@@ -101,7 +102,7 @@
 							<goal>jar</goal>
 						</goals>
 						<configuration>
-							<doctitle>abacus-query</doctitle>
+							<doctitle>alg4j</doctitle>
 							<show>public</show>
 							<doclint>none</doclint>
 						</configuration>

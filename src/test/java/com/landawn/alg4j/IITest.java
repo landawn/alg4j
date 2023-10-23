@@ -48,8 +48,8 @@ public class IITest {
         N.println(N.repeat('=', 80));
         II.longestSubstringsWithoutRepeatingCharacters("abcabcad").forEach(Fn.println());
 
-        N.println(Strings.findAllIndicesBetween("adb[12[3]]", "[", "]"));
-        N.println(Strings.findAllSubstringsBetween("adb[12[3]", "[", "]"));
+        N.println(Strings.substringIndicesBetween("adb[12[3]]", "[", "]"));
+        N.println(Strings.substringsBetween("adb[12[3]", "[", "]"));
     }
 
     @Test
