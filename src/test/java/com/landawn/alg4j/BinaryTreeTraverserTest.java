@@ -1,6 +1,6 @@
 package com.landawn.alg4j;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.landawn.alg4j.util.ImmutableBinaryTreeNode;
 import com.landawn.alg4j.util.BinaryTreeTraverser;

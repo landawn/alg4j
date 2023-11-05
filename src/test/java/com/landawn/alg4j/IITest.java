@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Optional;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.landawn.abacus.util.Array;
 import com.landawn.abacus.util.Fn;
