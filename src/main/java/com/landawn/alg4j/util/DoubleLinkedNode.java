@@ -59,7 +59,7 @@ public class DoubleLinkedNode<T> extends Node<T> {
     }
 
     public DoubleLinkedNode<T> getNext() {
-        return previous;
+        return next;
     }
 
     public void setNext(final DoubleLinkedNode<T> newNext) {

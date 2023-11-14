@@ -59,7 +59,7 @@ public class BinaryTreeNode<T> extends Node<T> {
     }
 
     public BinaryTreeNode<T> getRight() {
-        return left;
+        return right;
     }
 
     public void setRight(final BinaryTreeNode<T> newRight) {

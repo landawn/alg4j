@@ -83,6 +83,7 @@ public final class II {
      */
     public static Pair<Integer, OptionalInt> medianOfTwoSortedArrays(final int[] sortedA, final int[] sortedB) {
         N.checkArgument(N.notEmpty(sortedA) || N.notEmpty(sortedB), "The two sorted arrays can't both be null or empty");
+
         if (N.isEmpty(sortedA)) {
             final int len = sortedB.length;
             return Pair.of(sortedB[(len / 2) - 1], len % 2 == 0 ? OptionalInt.of(sortedB[len / 2]) : OptionalInt.empty());
